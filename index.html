@@ -73,13 +73,13 @@
             pointer-events: none;
         }
 
-        /* ===== ОСНОВНОЙ БЛОК СЛЕВА ===== */
+        /* ===== ОСНОВНОЙ БЛОК СЛЕВА (увеличенный) ===== */
         .main-block {
             position: absolute;
             left: 60px;
             top: 50%;
             transform: translateY(-50%);
-            width: 320px;
+            width: 440px;
             background: #f7eabe;
             border-radius: 32px;
             padding: 30px 28px 32px;
@@ -99,7 +99,32 @@
             user-select: none;
         }
 
-        /* ===== ВЕРХНИЙ РЯД: два прямоугольника ===== */
+        /* ===== ИНДИКАТОР ЛИСТАНИЯ (тире точка точка) ===== */
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            user-select: none;
+        }
+
+        .pagination .line {
+            width: 24px;
+            height: 2px;
+            background: #4a3728;
+            opacity: 0.15;
+            border-radius: 2px;
+        }
+
+        .pagination .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4a3728;
+            opacity: 0.15;
+        }
+
+        /* ===== ВЕРХНИЙ РЯД: прямоугольник + кнопка включения ===== */
         .top-row {
             display: flex;
             gap: 14px;
@@ -107,53 +132,71 @@
         }
 
         .rect-rounded {
-            width: 100px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            border: 1px solid rgba(74, 55, 40, 0.04);
-            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+            width: 140px;
+            height: 56px;
+            border-radius: 16px;
+            background: #d2b27c;
+            box-shadow:
+                0 0 20px rgba(210, 178, 124, 0.15),
+                0 0 40px rgba(210, 178, 124, 0.05),
+                inset 2px 2px 8px rgba(255, 255, 255, 0.3),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .rect-circle {
-            width: 44px;
-            height: 44px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(74, 55, 40, 0.04);
-            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+            background: linear-gradient(145deg, #a46431, #ad7f48);
+            box-shadow:
+                0 0 24px rgba(164, 100, 49, 0.2),
+                0 0 48px rgba(164, 100, 49, 0.08),
+                inset 2px 2px 8px rgba(255, 255, 255, 0.2),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: pointer;
         }
 
         .rect-circle .dot {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
-            background: #4a3728;
-            opacity: 0.15;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* ===== НИЖНИЙ РЯД: прямоугольник с зачёркнутым облачком ===== */
+        /* ===== НИЖНИЙ РЯД: прямоугольник с облачком + кружок слева ===== */
         .bottom-row {
             display: flex;
             align-items: center;
             gap: 14px;
         }
 
+        .small-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #a46431;
+            flex-shrink: 0;
+            box-shadow: 0 0 16px rgba(164, 100, 49, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
         .rect-cloud {
-            width: 80px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            border: 1px solid rgba(74, 55, 40, 0.04);
-            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+            flex: 1;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(to bottom, #d2b27c, #a46431);
+            box-shadow:
+                0 0 20px rgba(210, 178, 124, 0.1),
+                inset 2px 2px 8px rgba(255, 255, 255, 0.2),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -161,24 +204,109 @@
         }
 
         .cloud-icon {
-            font-size: 20px;
-            color: #4a3728;
-            opacity: 0.15;
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.15);
             position: relative;
         }
 
-        /* Зачёркивание облачка */
         .cloud-icon::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: -6px;
-            right: -6px;
+            left: -8px;
+            right: -8px;
             height: 2px;
-            background: #4a3728;
-            opacity: 0.2;
+            background: rgba(255, 255, 255, 0.15);
             transform: rotate(-12deg);
             border-radius: 2px;
+        }
+
+        /* ===== НАЛОЖЕННЫЙ БЛОК (справа, повторяет фон) ===== */
+        .overlay-block {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            height: 280px;
+            background: #0e0c0a;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        /* ===== МИНИ-ВОЛНЫ ВНУТРИ НАЛОЖЕННОГО БЛОКА ===== */
+        .overlay-block .mini-waves {
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+        }
+
+        .overlay-block .mini-waves svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ===== ДЛИННЫЙ ПРЯМОУГОЛЬНИК СВЕРХУ В НАЛОЖЕННОМ БЛОКЕ ===== */
+        .overlay-top-bar {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0 8px;
+            backdrop-filter: blur(2px);
+        }
+
+        .mini-rect {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            flex-shrink: 0;
+        }
+
+        /* ===== ДВА ПРЯМОУГОЛЬНИКА ВНИЗУ (один правее, другой ниже-левее) ===== */
+        .overlay-bottom-rects {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .overlay-bottom-rects .rect-right {
+            width: 40px;
+            height: 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .overlay-bottom-rects .rect-left {
+            width: 28px;
+            height: 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            align-self: flex-start;
+            margin-left: -10px;
         }
 
         /* ===== ПОДПИСЬ ===== */
@@ -206,7 +334,7 @@
 </head>
 <body>
 
-    <!-- ===== ФОН С ВОЛНАМИ (без изменений) ===== -->
+    <!-- ===== ФОН С ВОЛНАМИ ===== -->
     <div class="waves-container">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -246,10 +374,17 @@
     <!-- ===== ОСНОВНОЙ БЛОК СЛЕВА ===== -->
     <div class="main-block">
 
-        <!-- Хэштег: Sqst -->
+        <!-- Хэштег: #Sqst -->
         <div class="hash-sqst">#Sqst</div>
 
-        <!-- Верхний ряд: прямоугольник + круглый с кружочком -->
+        <!-- Индикатор листания: тире точка точка -->
+        <div class="pagination">
+            <span class="line"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+        <!-- Верхний ряд: прямоугольник + кнопка включения -->
         <div class="top-row">
             <div class="rect-rounded"></div>
             <div class="rect-circle">
@@ -257,11 +392,40 @@
             </div>
         </div>
 
-        <!-- Нижний ряд: прямоугольник с зачёркнутым облачком -->
+        <!-- Нижний ряд: кружок + прямоугольник с облачком -->
         <div class="bottom-row">
+            <div class="small-circle"></div>
             <div class="rect-cloud">
                 <span class="cloud-icon">☁</span>
             </div>
+        </div>
+
+        <!-- ===== НАЛОЖЕННЫЙ БЛОК (справа, повторяет фон) ===== -->
+        <div class="overlay-block">
+
+            <!-- Мини-волны внутри -->
+            <div class="mini-waves">
+                <svg viewBox="0 0 160 280" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="160" height="280" fill="#0e0c0a" />
+                    <path d="M 0 0 C 40 40, 60 100, 80 140 C 100 180, 120 240, 160 280 L 0 280 Z" fill="#1a1a1a" opacity="0.3" />
+                    <path d="M 0 40 C 30 80, 50 120, 70 160 C 90 200, 110 240, 160 280 L 0 280 Z" fill="#2a2a2a" opacity="0.15" />
+                </svg>
+            </div>
+
+            <!-- Длинный прямоугольник сверху с 4 мини-блоками -->
+            <div class="overlay-top-bar">
+                <div class="mini-rect"></div>
+                <div class="mini-rect"></div>
+                <div class="mini-rect"></div>
+                <div class="mini-rect"></div>
+            </div>
+
+            <!-- Два прямоугольника внизу -->
+            <div class="overlay-bottom-rects">
+                <div class="rect-right"></div>
+                <div class="rect-left"></div>
+            </div>
+
         </div>
 
     </div>
