@@ -1,116 +1,658 @@
-import React from 'react';
-import { Plus, Sparkle, Infinity, Camera, Settings, LayoutGrid, Command } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQST ✦ Glassmorphism UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-export default function GlassmorphismUI() {
-  return (
-    <div className="relative w-full h-[700px] bg-[#1a1614] flex items-center justify-center overflow-hidden font-light text-[#4a3728]">
-      
-      {/* Background soft glowing blobs */}
-      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#d4a373] rounded-full mix-blend-screen filter blur-[120px] opacity-30"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-[#b07d4a] rounded-full mix-blend-screen filter blur-[140px] opacity-20"></div>
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: #1a1614;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+            position: relative;
+        }
 
-      {/* Top text elements */}
-      <div className="absolute top-8 left-12 text-[#d4a373] tracking-widest text-xs font-medium uppercase opacity-70">
-        OMGso
-      </div>
-      <div className="absolute top-8 right-12 text-[#d4a373] tracking-wider text-xs flex gap-6 opacity-70 font-mono">
+        /* ========== ФОН: РАЗМЫТЫЕ ПЯТНА ========== */
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+        }
+        .bg-blob:nth-child(1) {
+            top: -10%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: #d4a373;
+            opacity: 0.3;
+        }
+        .bg-blob:nth-child(2) {
+            bottom: -10%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: #b07d4a;
+            opacity: 0.2;
+            filter: blur(140px);
+        }
+
+        /* ========== ТЕКСТ ВВЕРХУ ========== */
+        .top-text-left {
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            color: #d4a373;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        .top-text-right {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: #d4a373;
+            font-size: 11px;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            font-family: 'Courier New', monospace;
+            z-index: 2;
+            display: flex;
+            gap: 16px;
+        }
+
+        /* ========== ОСНОВНАЯ КАРТОЧКА ========== */
+        .main-card {
+            position: relative;
+            width: 85%;
+            height: 75%;
+            background: #fdfcf0;
+            border-radius: 48px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(253, 252, 240, 0.5);
+            z-index: 10;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ===== ЛЕВАЯ ЧАСТЬ ===== */
+        .left-content {
+            width: 45%;
+            height: 100%;
+            padding: 60px 50px 50px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .left-content .hash {
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #4a3728;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* ===== ВИДЖЕТЫ ВНИЗУ ===== */
+        .widgets {
+            display: flex;
+            gap: 24px;
+            align-items: flex-end;
+            margin-top: auto;
+        }
+
+        .vertical-widget {
+            width: 80px;
+            height: 180px;
+            background: linear-gradient(to bottom, #d5ae69, #e5c192, #f2d5cf);
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 30px;
+            box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vertical-widget .gloss {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+            pointer-events: none;
+        }
+
+        .vertical-widget .infinity {
+            font-size: 28px;
+            color: #4a3728;
+            opacity: 0.7;
+            z-index: 1;
+            font-weight: 300;
+        }
+
+        .horizontal-shapes {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-bottom: 8px;
+        }
+
+        .shape-row {
+            width: 110px;
+            height: 48px;
+            border-radius: 30px;
+            border: 1px solid rgba(213, 174, 105, 0.4);
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .shape-row .circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f2d5cf;
+            box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.4);
+        }
+
+        .shape-row.empty {
+            width: 80px;
+            background: #eae3d9;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== СТЕКЛЯННАЯ ПАНЕЛЬ (правая часть, наезжает) ===== */
+        .glass-panel {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            height: 110%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(40px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: -15px 15px 40px rgba(0, 0, 0, 0.15);
+            padding: 32px 36px;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== ВЕРХНЯЯ НАВИГАЦИЯ ===== */
+        .glass-nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .glass-nav .pill {
+            height: 40px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .glass-nav .pill.wide {
+            width: 80px;
+        }
+        .glass-nav .pill.square {
+            width: 40px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a3728;
+            font-size: 20px;
+            font-weight: 300;
+            cursor: pointer;
+        }
+
+        /* ===== ЦЕНТРАЛЬНАЯ ЗВЕЗДА ===== */
+        .center-star {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c5a059;
+            font-size: 100px;
+            opacity: 0.8;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+
+        /* ===== НИЖНИЕ СЛЭТЫ ===== */
+        .slats {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: auto;
+        }
+
+        .slat {
+            width: 100%;
+            height: 60px;
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slat.glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .slat.glass .gloss-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+            pointer-events: none;
+        }
+
+        .slat.glass .circle-small {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f2d5cf;
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.4);
+        }
+
+        .slat.glass .bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .slat.glass .bar .fill {
+            width: 100px;
+            height: 24px;
+            border-radius: 20px;
+            background: linear-gradient(to right, #d5ae69, #c5a059);
+            opacity: 0.9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .slat.cream {
+            background: #fdfcf0;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            justify-content: flex-end;
+            padding-right: 30px;
+        }
+
+        .slat.cream .cmd {
+            font-size: 22px;
+            color: #c5a059;
+            font-weight: 300;
+        }
+
+        .slat.split {
+            display: flex;
+            gap: 14px;
+            padding: 0;
+            height: 60px;
+        }
+
+        .slat.split .left {
+            width: 35%;
+            height: 100%;
+            border-radius: 40px;
+            background: #2a221b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #3a2c22;
+        }
+
+        .slat.split .left .inner-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d5ae69, #b07d4a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .slat.split .left .inner-circle .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #1a1614;
+        }
+
+        .slat.split .right {
+            width: 65%;
+            height: 100%;
+            border-radius: 40px;
+            background: #fdfcf0;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .slat.split .right .line {
+            width: 40px;
+            height: 6px;
+            border-radius: 10px;
+            background: #dccdbf;
+        }
+
+        .slat.split .right .grid-icon {
+            font-size: 22px;
+            color: #c5a059;
+            font-weight: 300;
+        }
+
+        /* ===== ПЛАВАЮЩИЕ КНОПКИ ===== */
+        .float-buttons {
+            position: absolute;
+            bottom: 40px;
+            right: 50px;
+            z-index: 30;
+            display: flex;
+            gap: 16px;
+        }
+
+        .float-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(58, 44, 34, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #d5ae69;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .float-btn:hover {
+            background: rgba(58, 44, 34, 0.6);
+        }
+
+        /* ========== ПОДПИСЬ ========== */
+        .signature {
+            position: absolute;
+            bottom: 16px;
+            left: 30px;
+            z-index: 30;
+            font-family: 'Georgia', serif;
+            color: rgba(206, 170, 115, 0.04);
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* ========== АДАПТАЦИЯ ========== */
+        @media (max-width: 1920px) {
+            body {
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-card {
+                width: 95%;
+                height: 85%;
+                border-radius: 28px;
+                flex-direction: column;
+            }
+            .left-content {
+                width: 100%;
+                height: 50%;
+                padding: 24px 20px 16px;
+            }
+            .left-content .hash {
+                font-size: 18px;
+            }
+            .widgets {
+                gap: 12px;
+            }
+            .vertical-widget {
+                width: 50px;
+                height: 100px;
+                padding-bottom: 16px;
+            }
+            .vertical-widget .infinity {
+                font-size: 18px;
+            }
+            .shape-row {
+                width: 70px;
+                height: 34px;
+            }
+            .shape-row .circle {
+                width: 24px;
+                height: 24px;
+            }
+            .shape-row.empty {
+                width: 50px;
+            }
+            .glass-panel {
+                position: relative;
+                right: 0;
+                top: 0;
+                transform: none;
+                width: 100%;
+                height: 50%;
+                border-radius: 28px;
+                padding: 20px;
+                box-shadow: none;
+            }
+            .glass-nav {
+                margin-bottom: 12px;
+            }
+            .glass-nav .pill.wide {
+                width: 50px;
+                height: 30px;
+            }
+            .glass-nav .pill.square {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+            .center-star {
+                font-size: 50px;
+            }
+            .slat {
+                height: 40px;
+                padding: 0 10px;
+            }
+            .slat.glass .circle-small {
+                width: 32px;
+                height: 32px;
+            }
+            .slat.glass .bar .fill {
+                width: 60px;
+                height: 16px;
+            }
+            .slat.cream {
+                padding-right: 16px;
+            }
+            .slat.cream .cmd {
+                font-size: 16px;
+            }
+            .slat.split .left {
+                width: 30%;
+            }
+            .slat.split .left .inner-circle {
+                width: 24px;
+                height: 24px;
+            }
+            .slat.split .right {
+                padding: 0 12px;
+            }
+            .slat.split .right .line {
+                width: 24px;
+                height: 4px;
+            }
+            .slat.split .right .grid-icon {
+                font-size: 16px;
+            }
+            .float-buttons {
+                bottom: 16px;
+                right: 16px;
+                gap: 10px;
+            }
+            .float-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+            .top-text-left,
+            .top-text-right {
+                font-size: 8px;
+                top: 16px;
+                left: 20px;
+            }
+            .top-text-right {
+                right: 20px;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ФОН ===== -->
+    <div class="bg-blob"></div>
+    <div class="bg-blob"></div>
+
+    <!-- ===== ТЕКСТ ВВЕРХУ ===== -->
+    <div class="top-text-left">OMGso</div>
+    <div class="top-text-right">
         <span>CV4</span>
         <span>xaa</span>
         <span>TQR43 )</span>
-      </div>
-
-      {/* Main Base Card */}
-      <div className="relative w-[85%] h-[75%] bg-[#fdfcf0] rounded-[48px] shadow-2xl flex border border-[#fdfcf0]/50 z-10">
-
-        {/* Left Content Area */}
-        <div className="flex flex-col h-full w-[45%] pt-16 pl-12 pb-12">
-          <div className="text-3xl font-medium tracking-wide text-[#4a3728] opacity-90 mb-8">
-            #arTYh)
-          </div>
-
-          {/* Spacer */}
-          <div className="flex-1"></div>
-
-          {/* Decorative Widgets Panel */}
-          <div className="flex gap-6 items-end mt-auto">
-            {/* Vertical Gradient Widget */}
-            <div className="w-20 h-48 bg-gradient-to-b from-[#d5ae69] via-[#e5c192] to-[#f2d5cf] rounded-full flex flex-col items-center justify-end pb-8 shadow-inner border border-white/30 relative overflow-hidden">
-               {/* Glossy overlay effect */}
-               <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/30 to-transparent"></div>
-               <Infinity size={28} className="text-[#4a3728]/70 z-10 stroke-1" />
-            </div>
-
-            {/* Horizontal abstract shapes */}
-            <div className="flex flex-col gap-5 pb-2">
-              <div className="w-28 h-12 rounded-full border border-[#d5ae69]/40 flex items-center px-1.5 shadow-sm bg-white/10">
-                 <div className="w-9 h-9 rounded-full bg-[#f2d5cf] shadow-sm"></div>
-              </div>
-              <div className="w-20 h-12 rounded-full bg-[#eae3d9] shadow-inner border border-white/50"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Glass Overlay Panel (Right Side) */}
-        {/* Slightly breaking out of the main container for 3D depth */}
-        <div className="absolute right-[-5%] top-1/2 -translate-y-1/2 w-[60%] h-[110%] bg-white/20 backdrop-blur-xl rounded-[40px] border border-white/50 shadow-[-15px_15px_40px_rgba(0,0,0,0.15)] p-8 flex flex-col z-20">
-
-          {/* Glass Top Navigation Bar */}
-          <div className="flex justify-end gap-3 mb-10">
-            <div className="w-12 h-10 rounded-full bg-white/30 backdrop-blur-md shadow-sm border border-white/40"></div>
-            <div className="w-20 h-10 rounded-full bg-white/30 backdrop-blur-md shadow-sm border border-white/40"></div>
-            <button className="w-10 h-10 rounded-xl bg-white/40 backdrop-blur-md flex items-center justify-center text-[#4a3728] shadow-sm border border-white/50 hover:bg-white/50 transition-colors">
-              <Plus size={20} strokeWidth={1.5} />
-            </button>
-          </div>
-
-          {/* Center Main Graphic (Star/Sparkle) */}
-          <div className="flex-1 flex items-center justify-center">
-             <Sparkle size={100} strokeWidth={0.5} className="text-[#c5a059] opacity-80" />
-          </div>
-
-          {/* Bottom Interactive Slats */}
-          <div className="flex flex-col gap-4 mt-auto">
-            {/* Slat 1: Glassy with elements */}
-            <div className="w-full h-16 rounded-full bg-white/30 backdrop-blur-md border border-white/50 flex items-center px-2 shadow-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/40 to-transparent pointer-events-none"></div>
-              <div className="w-12 h-12 rounded-full bg-[#f2d5cf] shadow-inner border border-white/40"></div>
-              <div className="flex-1 flex justify-center">
-                <div className="w-24 h-6 rounded-full bg-gradient-to-r from-[#d5ae69] to-[#c5a059] shadow-sm opacity-90"></div>
-              </div>
-            </div>
-
-            {/* Slat 2: Solid Cream */}
-            <div className="w-full h-16 rounded-full bg-[#fdfcf0] flex items-center justify-end px-6 shadow-md border border-white/80">
-               <Command size={22} strokeWidth={1.5} className="text-[#c5a059]" />
-            </div>
-
-            {/* Slat 3: Split design */}
-            <div className="w-full h-16 flex gap-4">
-              <div className="w-[35%] h-full rounded-full bg-[#2a221b] flex items-center justify-center shadow-lg border border-[#3a2c22]">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#d5ae69] to-[#b07d4a] flex items-center justify-center shadow-inner">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#1a1614]"></div>
-                </div>
-              </div>
-              <div className="w-[65%] h-full rounded-full bg-[#fdfcf0] flex items-center justify-between px-6 shadow-md border border-white/80">
-                <div className="w-10 h-1.5 rounded-full bg-[#dccdbf]"></div>
-                <LayoutGrid size={22} strokeWidth={1.5} className="text-[#c5a059]" />
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Floating Bottom Right Actions */}
-      <div className="absolute bottom-10 right-12 flex gap-4 z-30">
-         <button className="p-3.5 rounded-full bg-[#3a2c22]/40 backdrop-blur-md border border-white/10 hover:bg-[#3a2c22]/60 transition text-[#d5ae69] shadow-lg">
-           <Camera size={22} strokeWidth={1.5} />
-         </button>
-         <button className="p-3.5 rounded-full bg-[#3a2c22]/40 backdrop-blur-md border border-white/10 hover:bg-[#3a2c22]/60 transition text-[#d5ae69] shadow-lg">
-           <Settings size={22} strokeWidth={1.5} />
-         </button>
-      </div>
-      
     </div>
-  );
-}
+
+    <!-- ===== ОСНОВНАЯ КАРТОЧКА ===== -->
+    <div class="main-card">
+
+        <!-- ===== ЛЕВАЯ ЧАСТЬ ===== -->
+        <div class="left-content">
+            <div class="hash">#arTYh)</div>
+
+            <div class="widgets">
+                <!-- Вертикальный виджет -->
+                <div class="vertical-widget">
+                    <div class="gloss"></div>
+                    <span class="infinity">∞</span>
+                </div>
+
+                <!-- Горизонтальные фигуры -->
+                <div class="horizontal-shapes">
+                    <div class="shape-row">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="shape-row empty"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== СТЕКЛЯННАЯ ПАНЕЛЬ (правая) ===== -->
+        <div class="glass-panel">
+
+            <!-- Навигация -->
+            <div class="glass-nav">
+                <div class="pill wide"></div>
+                <div class="pill wide"></div>
+                <div class="pill square">+</div>
+            </div>
+
+            <!-- Центральная звезда -->
+            <div class="center-star">✦</div>
+
+            <!-- Нижние слэты -->
+            <div class="slats">
+
+                <!-- Слэт 1: стеклянный -->
+                <div class="slat glass">
+                    <div class="gloss-overlay"></div>
+                    <div class="circle-small"></div>
+                    <div class="bar">
+                        <div class="fill"></div>
+                    </div>
+                </div>
+
+                <!-- Слэт 2: кремовый -->
+                <div class="slat cream">
+                    <span class="cmd">⌘</span>
+                </div>
+
+                <!-- Слэт 3: сплит -->
+                <div class="slat split">
+                    <div class="left">
+                        <div class="inner-circle">
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="line"></div>
+                        <span class="grid-icon">▤</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== ПЛАВАЮЩИЕ КНОПКИ ===== -->
+    <div class="float-buttons">
+        <div class="float-btn">◈</div>
+        <div class="float-btn">⚙</div>
+    </div>
+
+    <!-- ===== ПОДПИСЬ ===== -->
+    <div class="signature">SQST ✦</div>
+
+</body>
+</html>
