@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Обои — серо-золотой контраст</title>
+    <title>SQST ✦ Интерфейс — тёмная тема</title>
     <style>
         /* ========== СБРОС ========== */
         * {
@@ -16,191 +16,272 @@
             width: 1920px;
             height: 1080px;
             overflow: hidden;
-            background: #f5e6bc;
+            background: #1f140e;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
             position: relative;
         }
 
-        /* ========== ГРАДИЕНТНЫЕ ПЯТНА (яркие, контрастные) ========== */
-        .gradient-layer {
+        /* ========== ФОН: РАЗМЫТЫЙ ГРАДИЕНТ ========== */
+        .bg {
             position: absolute;
             inset: 0;
             z-index: 0;
-            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 20% 30%, #804a23 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, #54444c 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, #1f140e 0%, transparent 60%),
+                #1f140e;
+            filter: blur(2px);
         }
 
-        .gradient-layer .g1 {
+        /* ========== СВЕТОВЫЕ ПЯТНА (глубина) ========== */
+        .light-spot {
             position: absolute;
-            top: -15%;
-            left: -10%;
-            width: 70%;
-            height: 70%;
-            background: radial-gradient(ellipse at 30% 40%, #ceaa73 0%, #be9864 35%, #ab7840 65%, transparent 85%);
-            opacity: 0.9;
             border-radius: 50%;
-            filter: blur(100px);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(120px);
         }
 
-        .gradient-layer .g2 {
-            position: absolute;
-            bottom: -10%;
+        .light-spot:nth-child(2) {
+            top: -10%;
             right: -5%;
-            width: 65%;
-            height: 65%;
-            background: radial-gradient(ellipse at 70% 60%, #804a23 0%, #9b8464 40%, #c5af91 70%, transparent 90%);
-            opacity: 0.8;
-            border-radius: 50%;
-            filter: blur(120px);
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(206, 170, 115, 0.08) 0%, transparent 70%);
         }
 
-        .gradient-layer .g3 {
-            position: absolute;
-            top: 25%;
-            right: 15%;
-            width: 45%;
-            height: 45%;
-            background: radial-gradient(ellipse at 50% 50%, #be9864 0%, #ab7840 50%, transparent 80%);
-            opacity: 0.6;
-            border-radius: 50%;
-            filter: blur(140px);
+        .light-spot:nth-child(3) {
+            bottom: -10%;
+            left: -5%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(190, 152, 100, 0.06) 0%, transparent 70%);
         }
 
-        .gradient-layer .g4 {
-            position: absolute;
-            bottom: 25%;
-            left: 5%;
-            width: 35%;
-            height: 35%;
-            background: radial-gradient(ellipse at 30% 60%, #1f140e 0%, #9b8464 50%, transparent 80%);
-            opacity: 0.5;
-            border-radius: 50%;
-            filter: blur(120px);
-        }
-
-        .gradient-layer .g5 {
-            position: absolute;
-            top: 5%;
-            right: 30%;
-            width: 30%;
-            height: 30%;
-            background: radial-gradient(ellipse at 50% 50%, #c5af91 0%, #ceaa73 50%, transparent 80%);
-            opacity: 0.4;
-            border-radius: 50%;
-            filter: blur(100px);
-        }
-
-        /* ========== ХАОТИЧНЫЕ ЛИНИИ (толстые, яркие) ========== */
-        .chaos-lines {
-            position: absolute;
-            inset: 0;
+        /* ========== КОНТЕЙНЕР С ИНТЕРФЕЙСНЫМИ БЛОКАМИ ========== */
+        .interface {
+            position: relative;
             z-index: 1;
-            pointer-events: none;
-            opacity: 0.8;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 900px;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
         }
 
-        .chaos-lines svg {
-            width: 100%;
-            height: 100%;
-            display: block;
+        /* ===== БЛОКИ С МАТОВЫМ СТЕКЛОМ ===== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+            padding: 24px 28px 28px;
+            transition: 0.4s;
+            flex: 1 1 240px;
+            min-width: 200px;
         }
 
-        /* ========== НЕОНОВОЕ СВЕЧЕНИЕ ========== */
-        .neon-glow {
-            position: absolute;
-            bottom: 80px;
-            right: 100px;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(206, 170, 115, 0.4) 0%, rgba(190, 152, 100, 0.2) 30%, transparent 70%);
-            z-index: 1;
-            pointer-events: none;
-            filter: blur(60px);
-            animation: glowPulse 3.5s ease-in-out infinite alternate;
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(206, 170, 115, 0.06);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            transform: translateY(-2px);
         }
 
-        @keyframes glowPulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(1.4);
-                opacity: 1;
-            }
+        .glass-card .title {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(206, 170, 115, 0.3);
+            margin-bottom: 14px;
+            font-weight: 500;
         }
 
-        /* ========== СИМВОЛ И ТЕКСТ ========== */
-        .signature {
-            position: absolute;
-            bottom: 50px;
-            right: 60px;
-            z-index: 3;
+        .glass-card .title .gold {
+            color: rgba(206, 170, 115, 0.5);
+        }
+
+        /* ===== ЭЛЕМЕНТЫ УПРАВЛЕНИЯ ===== */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .control-row {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
-            font-family: 'Georgia', serif;
         }
 
-        .symbol {
-            font-size: 120px;
-            color: #ceaa73;
-            text-shadow:
-                0 0 40px rgba(206, 170, 115, 0.8),
-                0 0 80px rgba(206, 170, 115, 0.4),
-                0 0 120px rgba(206, 170, 115, 0.2),
-                0 0 200px rgba(190, 152, 100, 0.1),
-                0 0 300px rgba(171, 120, 64, 0.05);
-            animation: neonPulse 2.8s ease-in-out infinite;
-            font-weight: 400;
-            letter-spacing: 2px;
-            line-height: 1;
-        }
-
-        .text {
-            font-size: 20px;
-            letter-spacing: 8px;
-            color: #ceaa73;
-            opacity: 0.4;
+        .control-row .label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
             font-weight: 300;
-            text-transform: uppercase;
-            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
-        @keyframes neonPulse {
-            0%, 100% {
-                text-shadow:
-                    0 0 40px rgba(206, 170, 115, 0.8),
-                    0 0 80px rgba(206, 170, 115, 0.4),
-                    0 0 120px rgba(206, 170, 115, 0.2);
-                transform: scale(1);
-            }
-            50% {
-                text-shadow:
-                    0 0 60px rgba(206, 170, 115, 1),
-                    0 0 120px rgba(206, 170, 115, 0.6),
-                    0 0 180px rgba(206, 170, 115, 0.3),
-                    0 0 300px rgba(190, 152, 100, 0.15),
-                    0 0 400px rgba(171, 120, 64, 0.08);
-                transform: scale(1.02);
-            }
+        .control-row .value {
+            font-size: 12px;
+            color: rgba(206, 170, 115, 0.5);
+            font-weight: 400;
+            min-width: 24px;
+            text-align: right;
         }
 
-        /* ========== ФУТЕР ========== */
-        .footer {
+        /* ===== СЛАЙДЕРЫ ===== */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 3px;
+            border-radius: 10px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.04);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ceaa73, #be9864);
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(206, 170, 115, 0.2);
+            border: none;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ceaa73, #be9864);
+            cursor: pointer;
+            border: none;
+        }
+
+        /* ===== ПЕРЕКЛЮЧАТЕЛИ (TOGGLE) ===== */
+        .toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .toggle .track {
+            width: 36px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 30px;
+            position: relative;
+            transition: 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .toggle .track .thumb {
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #ceaa73, #be9864);
+            border-radius: 50%;
             position: absolute;
-            bottom: 20px;
-            left: 40px;
+            top: 2px;
+            left: 2px;
+            transition: 0.4s;
+            box-shadow: 0 0 20px rgba(206, 170, 115, 0.1);
+        }
+
+        .toggle.active .track .thumb {
+            left: 18px;
+        }
+
+        .toggle .label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.25);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== КНОПКИ С ИКОНКАМИ ===== */
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.4s;
+            font-family: 'Segoe UI', sans-serif;
+            backdrop-filter: blur(4px);
+        }
+
+        .icon-btn:hover {
+            background: rgba(206, 170, 115, 0.04);
+            border-color: rgba(206, 170, 115, 0.08);
+            color: rgba(206, 170, 115, 0.4);
+            transform: scale(1.02);
+        }
+
+        .icon-btn .gold {
+            color: rgba(206, 170, 115, 0.3);
+        }
+
+        .icon-btn .star {
+            font-size: 18px;
+        }
+
+        /* ===== ИКОНКА ✦ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
+        .signature {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
             z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-family: 'Georgia', serif;
+        }
+
+        .signature .symbol {
+            font-size: 40px;
+            color: rgba(206, 170, 115, 0.15);
+            text-shadow: 0 0 40px rgba(206, 170, 115, 0.03);
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        .signature .text {
             font-size: 10px;
             letter-spacing: 4px;
-            color: rgba(160, 152, 136, 0.1);
-            pointer-events: none;
+            color: rgba(206, 170, 115, 0.04);
             text-transform: uppercase;
+            font-weight: 300;
         }
 
         /* ========== АДАПТАЦИЯ ========== */
@@ -212,96 +293,117 @@
         }
 
         @media (max-width: 768px) {
-            .symbol {
-                font-size: 60px;
+            .interface {
+                padding: 10px;
+                gap: 16px;
             }
-            .text {
-                font-size: 12px;
-                letter-spacing: 4px;
+            .glass-card {
+                padding: 18px 16px 20px;
+                min-width: 140px;
+                flex: 1 1 160px;
+            }
+            .glass-card .title {
+                font-size: 9px;
+                letter-spacing: 2px;
+            }
+            .control-row .label {
+                font-size: 10px;
+            }
+            .icon-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 13px;
+                border-radius: 10px;
+            }
+            .signature .symbol {
+                font-size: 28px;
+            }
+            .signature .text {
+                font-size: 8px;
+                letter-spacing: 3px;
             }
             .signature {
-                bottom: 30px;
-                right: 30px;
-            }
-            .neon-glow {
-                width: 200px;
-                height: 200px;
-                bottom: 40px;
-                right: 50px;
-            }
-            .gradient-layer .g1,
-            .gradient-layer .g2,
-            .gradient-layer .g3,
-            .gradient-layer .g4,
-            .gradient-layer .g5 {
-                filter: blur(60px);
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== ГРАДИЕНТЫ ===== -->
-    <div class="gradient-layer">
-        <div class="g1"></div>
-        <div class="g2"></div>
-        <div class="g3"></div>
-        <div class="g4"></div>
-        <div class="g5"></div>
+    <!-- ===== ТЁМНЫЙ ФОН ===== -->
+    <div class="bg"></div>
+    <div class="light-spot"></div>
+    <div class="light-spot"></div>
+
+    <!-- ===== ИНТЕРФЕЙСНЫЕ БЛОКИ ===== -->
+    <div class="interface">
+
+        <!-- ===== БЛОК 1: СЛАЙДЕРЫ ===== -->
+        <div class="glass-card">
+            <div class="title">✦ <span class="gold">Настройки</span></div>
+            <div class="control-group">
+                <div class="control-row">
+                    <span class="label">Яркость</span>
+                    <input type="range" min="0" max="100" value="65" />
+                    <span class="value">65%</span>
+                </div>
+                <div class="control-row">
+                    <span class="label">Контраст</span>
+                    <input type="range" min="0" max="100" value="42" />
+                    <span class="value">42%</span>
+                </div>
+                <div class="control-row">
+                    <span class="label">Свечение</span>
+                    <input type="range" min="0" max="100" value="80" />
+                    <span class="value">80%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== БЛОК 2: ПЕРЕКЛЮЧАТЕЛИ ===== -->
+        <div class="glass-card">
+            <div class="title">✦ <span class="gold">Режимы</span></div>
+            <div class="control-group">
+                <div class="toggle active" onclick="this.classList.toggle('active')">
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="label">Неон</span>
+                </div>
+                <div class="toggle" onclick="this.classList.toggle('active')">
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="label">Гравировка</span>
+                </div>
+                <div class="toggle active" onclick="this.classList.toggle('active')">
+                    <div class="track"><div class="thumb"></div></div>
+                    <span class="label">Матовое стекло</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== БЛОК 3: КНОПКИ С ИКОНКАМИ ===== -->
+        <div class="glass-card">
+            <div class="title">✦ <span class="gold">Инструменты</span></div>
+            <div class="btn-row">
+                <div class="icon-btn">✦</div>
+                <div class="icon-btn">✧</div>
+                <div class="icon-btn">⌘</div>
+                <div class="icon-btn">⚙</div>
+                <div class="icon-btn">✚</div>
+                <div class="icon-btn">◈</div>
+                <div class="icon-btn">⌂</div>
+                <div class="icon-btn">✦</div>
+            </div>
+            <div class="btn-row" style="margin-top: 6px;">
+                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:12px; color:rgba(206,170,115,0.2);">
+                    <span>✦</span> Применить
+                </div>
+                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:12px; color:rgba(255,255,255,0.1);">
+                    <span>✧</span> Сброс
+                </div>
+            </div>
+        </div>
+
     </div>
-
-    <!-- ===== ХАОТИЧНЫЕ ЛИНИИ (толстые, яркие) ===== -->
-    <div class="chaos-lines">
-        <svg viewBox="0 0 1920 1080" preserveAspectRatio="none">
-            <!-- Линия 1 — толстая волна -->
-            <path d="
-                M -50 200
-                C 200 80, 400 320, 600 160
-                C 800 0, 1000 280, 1200 140
-                C 1400 0, 1600 260, 1970 100
-            " stroke="#ceaa73" stroke-width="3" fill="none" opacity="0.5" />
-
-            <!-- Линия 2 — хаотичная, толстая -->
-            <path d="
-                M -50 450
-                C 150 380, 350 550, 550 420
-                C 750 290, 950 520, 1150 380
-                C 1350 240, 1550 500, 1970 350
-            " stroke="#be9864" stroke-width="2.5" fill="none" opacity="0.4" />
-
-            <!-- Линия 3 — почти прямая с изгибом -->
-            <path d="
-                M -50 650
-                C 300 620, 500 700, 700 630
-                C 900 560, 1100 720, 1300 620
-                C 1500 520, 1700 700, 1970 600
-            " stroke="#ab7840" stroke-width="3" fill="none" opacity="0.35" />
-
-            <!-- Линия 4 — короткая хаотичная -->
-            <path d="
-                M 150 850
-                C 400 810, 550 920, 750 820
-                C 950 720, 1150 900, 1350 810
-            " stroke="#ceaa73" stroke-width="2" fill="none" opacity="0.3" />
-
-            <!-- Линия 5 — вертикальная дуга -->
-            <path d="
-                M 80 1080
-                C 110 780, 180 560, 150 340
-                C 120 120, 200 20, 170 -50
-            " stroke="#be9864" stroke-width="2.5" fill="none" opacity="0.3" />
-
-            <!-- Линия 6 — диагональная -->
-            <path d="
-                M -50 950
-                C 400 890, 800 1000, 1200 920
-                C 1600 840, 1800 980, 1970 900
-            " stroke="#ab7840" stroke-width="2" fill="none" opacity="0.25" />
-        </svg>
-    </div>
-
-    <!-- ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== -->
-    <div class="neon-glow"></div>
 
     <!-- ===== ПОДПИСЬ ===== -->
     <div class="signature">
@@ -309,8 +411,21 @@
         <span class="symbol">✦</span>
     </div>
 
-    <!-- ===== ФУТЕР ===== -->
-    <div class="footer">✦</div>
+    <!-- ===== МИКРО-СКРИПТ ДЛЯ ТОГГЛОВ ===== -->
+    <script>
+        document.querySelectorAll('.toggle').forEach(t => {
+            t.addEventListener('click', function(e) {
+                // Не даём сработать дважды при клике на трек
+                if (e.target.closest('.track')) return;
+                this.classList.toggle('active');
+            });
+            // Клик по треку тоже переключает
+            t.querySelector('.track').addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.closest('.toggle').classList.toggle('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
