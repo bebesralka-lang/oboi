@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Фон — вертикальные волны</title>
+    <title>SQST ✦ Интерфейс — основной блок</title>
     <style>
         * {
             margin: 0;
@@ -20,10 +20,10 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
         }
 
-        /* ===== КОНТЕЙНЕР С ВОЛНАМИ ===== */
+        /* ===== ФОН С ВОЛНАМИ (без изменений) ===== */
         .waves-container {
             position: absolute;
             inset: 0;
@@ -37,7 +37,6 @@
             display: block;
         }
 
-        /* ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== */
         .center-glow {
             position: absolute;
             top: 50%;
@@ -52,7 +51,6 @@
             opacity: 0.7;
         }
 
-        /* ===== ТЕНИ ПО БОКАМ (вертикальные) ===== */
         .shadow-left {
             position: absolute;
             top: 0;
@@ -75,22 +73,115 @@
             pointer-events: none;
         }
 
-        /* ===== ВЕРХНИЙ ТЕКСТ ===== */
-        .top-text {
+        /* ===== ОСНОВНОЙ БЛОК СЛЕВА ===== */
+        .main-block {
             position: absolute;
-            top: 40px;
-            left: 50px;
-            z-index: 2;
-            color: rgba(255, 255, 255, 0.03);
-            font-size: 14px;
-            letter-spacing: 4px;
-            font-weight: 300;
-            text-transform: uppercase;
-            font-family: 'Courier New', monospace;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            background: #f7eabe;
+            border-radius: 32px;
+            padding: 30px 28px 32px;
+            z-index: 10;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* ===== ХЭШТЕГ SQST ===== */
+        .hash-sqst {
+            font-size: 18px;
+            font-weight: 400;
+            color: #4a3728;
+            letter-spacing: 3px;
+            opacity: 0.5;
+            margin-bottom: 18px;
             user-select: none;
         }
 
-        /* ===== ПОДПИСЬ SQST ===== */
+        /* ===== ВЕРХНИЙ РЯД: два прямоугольника ===== */
+        .top-row {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .rect-rounded {
+            width: 100px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            border: 1px solid rgba(74, 55, 40, 0.04);
+            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .rect-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(74, 55, 40, 0.04);
+            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rect-circle .dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #4a3728;
+            opacity: 0.15;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ===== НИЖНИЙ РЯД: прямоугольник с зачёркнутым облачком ===== */
+        .bottom-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .rect-cloud {
+            width: 80px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            border: 1px solid rgba(74, 55, 40, 0.04);
+            box-shadow: inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+                        inset -2px -2px 6px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .cloud-icon {
+            font-size: 20px;
+            color: #4a3728;
+            opacity: 0.15;
+            position: relative;
+        }
+
+        /* Зачёркивание облачка */
+        .cloud-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -6px;
+            right: -6px;
+            height: 2px;
+            background: #4a3728;
+            opacity: 0.2;
+            transform: rotate(-12deg);
+            border-radius: 2px;
+        }
+
+        /* ===== ПОДПИСЬ ===== */
         .signature {
             position: absolute;
             bottom: 30px;
@@ -115,11 +206,10 @@
 </head>
 <body>
 
-    <!-- ===== ВЕРТИКАЛЬНЫЕ ВОЛНЫ (SVG) ===== -->
+    <!-- ===== ФОН С ВОЛНАМИ (без изменений) ===== -->
     <div class="waves-container">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <!-- Горизонтальный градиент: тёмные края → светлый центр -->
                 <linearGradient id="gradMain" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#0e0c0a" />
                     <stop offset="15%" stop-color="#343434" />
@@ -133,132 +223,48 @@
                     <stop offset="100%" stop-color="#0e0c0a" />
                 </linearGradient>
             </defs>
-
-            <!-- Базовый фон -->
             <rect width="1920" height="1080" fill="url(#gradMain)" opacity="1" />
-
-            <!-- ===== ВЕРТИКАЛЬНЫЕ ВОЛНЫ ===== -->
-
-            <!-- Волна 1 — левая -->
-            <path d="
-                M 0 0
-                C 80 200, 40 400, 80 600
-                C 120 800, 60 1000, 0 1080
-                L 0 0
-                Z
-            " fill="#4d2714" opacity="0.3" />
-
-            <!-- Волна 2 — ближе к центру слева -->
-            <path d="
-                M 200 0
-                C 300 180, 250 400, 300 600
-                C 350 800, 280 1000, 200 1080
-                L 200 0
-                Z
-            " fill="#50392b" opacity="0.25" />
-
-            <!-- Волна 3 — левая центральная -->
-            <path d="
-                M 400 0
-                C 520 200, 460 400, 520 600
-                C 580 800, 500 1000, 400 1080
-                L 400 0
-                Z
-            " fill="#74563c" opacity="0.2" />
-
-            <!-- Волна 4 — правая центральная -->
-            <path d="
-                M 1520 0
-                C 1400 200, 1460 400, 1400 600
-                C 1340 800, 1420 1000, 1520 1080
-                L 1520 0
-                Z
-            " fill="#74563c" opacity="0.2" />
-
-            <!-- Волна 5 — ближе к центру справа -->
-            <path d="
-                M 1720 0
-                C 1620 180, 1670 400, 1620 600
-                C 1570 800, 1640 1000, 1720 1080
-                L 1720 0
-                Z
-            " fill="#50392b" opacity="0.25" />
-
-            <!-- Волна 6 — правая -->
-            <path d="
-                M 1920 0
-                C 1840 200, 1880 400, 1840 600
-                C 1800 800, 1860 1000, 1920 1080
-                L 1920 0
-                Z
-            " fill="#4d2714" opacity="0.3" />
-
-            <!-- Волна 7 — светлая в центре -->
-            <path d="
-                M 700 0
-                C 820 250, 760 500, 820 750
-                C 880 1000, 800 1050, 700 1080
-                L 1220 1080
-                C 1120 1050, 1040 1000, 1100 750
-                C 1160 500, 1100 250, 1220 0
-                Z
-            " fill="#b68c4a" opacity="0.08" />
-
-            <!-- Волна 8 — тонкая светлая линия в центре -->
-            <path d="
-                M 900 0
-                C 980 300, 920 600, 980 900
-                C 1040 1050, 1000 1080, 900 1080
-                L 1020 1080
-                C 940 1050, 980 900, 920 600
-                C 860 300, 920 0, 1020 0
-                Z
-            " fill="#b68c4a" opacity="0.05" />
-
-            <!-- Волна 9 — диагональная тень слева -->
-            <path d="
-                M 0 0
-                C 200 200, 300 500, 200 800
-                C 100 1000, 50 1050, 0 1080
-                L 0 0
-                Z
-            " fill="#0e0c0a" opacity="0.4" />
-
-            <!-- Волна 10 — диагональная тень справа -->
-            <path d="
-                M 1920 0
-                C 1720 200, 1620 500, 1720 800
-                C 1820 1000, 1870 1050, 1920 1080
-                L 1920 0
-                Z
-            " fill="#0e0c0a" opacity="0.4" />
-
-            <!-- Волна 11 — верхняя тонкая -->
-            <path d="
-                M 0 100
-                C 300 0, 600 200, 900 50
-                C 1200 -100, 1500 150, 1920 80
-            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
-
-            <!-- Волна 12 — нижняя тонкая -->
-            <path d="
-                M 0 980
-                C 300 1080, 600 880, 900 1030
-                C 1200 1180, 1500 930, 1920 1000
-            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
-
+            <path d="M 0 0 C 80 200, 40 400, 80 600 C 120 800, 60 1000, 0 1080 L 0 0 Z" fill="#4d2714" opacity="0.3" />
+            <path d="M 200 0 C 300 180, 250 400, 300 600 C 350 800, 280 1000, 200 1080 L 200 0 Z" fill="#50392b" opacity="0.25" />
+            <path d="M 400 0 C 520 200, 460 400, 520 600 C 580 800, 500 1000, 400 1080 L 400 0 Z" fill="#74563c" opacity="0.2" />
+            <path d="M 1520 0 C 1400 200, 1460 400, 1400 600 C 1340 800, 1420 1000, 1520 1080 L 1520 0 Z" fill="#74563c" opacity="0.2" />
+            <path d="M 1720 0 C 1620 180, 1670 400, 1620 600 C 1570 800, 1640 1000, 1720 1080 L 1720 0 Z" fill="#50392b" opacity="0.25" />
+            <path d="M 1920 0 C 1840 200, 1880 400, 1840 600 C 1800 800, 1860 1000, 1920 1080 L 1920 0 Z" fill="#4d2714" opacity="0.3" />
+            <path d="M 700 0 C 820 250, 760 500, 820 750 C 880 1000, 800 1050, 700 1080 L 1220 1080 C 1120 1050, 1040 1000, 1100 750 C 1160 500, 1100 250, 1220 0 Z" fill="#b68c4a" opacity="0.08" />
+            <path d="M 900 0 C 980 300, 920 600, 980 900 C 1040 1050, 1000 1080, 900 1080 L 1020 1080 C 940 1050, 980 900, 920 600 C 860 300, 920 0, 1020 0 Z" fill="#b68c4a" opacity="0.05" />
+            <path d="M 0 0 C 200 200, 300 500, 200 800 C 100 1000, 50 1050, 0 1080 L 0 0 Z" fill="#0e0c0a" opacity="0.4" />
+            <path d="M 1920 0 C 1720 200, 1620 500, 1720 800 C 1820 1000, 1870 1050, 1920 1080 L 1920 0 Z" fill="#0e0c0a" opacity="0.4" />
+            <path d="M 0 100 C 300 0, 600 200, 900 50 C 1200 -100, 1500 150, 1920 80" stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
+            <path d="M 0 980 C 300 1080, 600 880, 900 1030 C 1200 1180, 1500 930, 1920 1000" stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
         </svg>
     </div>
 
-    <!-- ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== -->
     <div class="center-glow"></div>
-
-    <!-- ===== ТЕНИ ПО БОКАМ ===== -->
     <div class="shadow-left"></div>
     <div class="shadow-right"></div>
 
-    <!-- ===== ВЕРХНИЙ ТЕКСТ ===== -->
-    <div class="top-text">✦ interface</div>
+    <!-- ===== ОСНОВНОЙ БЛОК СЛЕВА ===== -->
+    <div class="main-block">
+
+        <!-- Хэштег: Sqst -->
+        <div class="hash-sqst">#Sqst</div>
+
+        <!-- Верхний ряд: прямоугольник + круглый с кружочком -->
+        <div class="top-row">
+            <div class="rect-rounded"></div>
+            <div class="rect-circle">
+                <div class="dot"></div>
+            </div>
+        </div>
+
+        <!-- Нижний ряд: прямоугольник с зачёркнутым облачком -->
+        <div class="bottom-row">
+            <div class="rect-cloud">
+                <span class="cloud-icon">☁</span>
+            </div>
+        </div>
+
+    </div>
 
     <!-- ===== ПОДПИСЬ ===== -->
     <div class="signature">SQST ✦</div>
