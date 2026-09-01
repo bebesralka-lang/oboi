@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Обои — Золотой неон</title>
+    <title>SQST ✦ Обои — серо-золотой градиент</title>
     <style>
         /* ========== СБРОС ========== */
         * {
@@ -16,7 +16,7 @@
             width: 1920px;
             height: 1080px;
             overflow: hidden;
-            background: #faf6ed;
+            background: #f5e6bc;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -24,13 +24,69 @@
             position: relative;
         }
 
-        /* ========== ХАОТИЧНЫЕ ЛИНИИ ========== */
-        .chaos-lines {
+        /* ========== СЕРО-ЗОЛОТЫЕ ГРАДИЕНТЫ ========== */
+        .gradient-layer {
             position: absolute;
             inset: 0;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.6;
+        }
+
+        .gradient-layer .g1 {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(ellipse at 30% 40%, #f5e6bc 0%, #ceaa73 30%, #be9864 60%, transparent 80%);
+            opacity: 0.7;
+            border-radius: 50%;
+            filter: blur(80px);
+        }
+
+        .gradient-layer .g2 {
+            position: absolute;
+            bottom: -10%;
+            right: -5%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(ellipse at 70% 60%, #ab7840 0%, #9b8464 40%, #c5af91 70%, transparent 90%);
+            opacity: 0.5;
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        .gradient-layer .g3 {
+            position: absolute;
+            top: 30%;
+            right: 20%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(ellipse at 50% 50%, #804a23 0%, #54444c 50%, transparent 80%);
+            opacity: 0.2;
+            border-radius: 50%;
+            filter: blur(120px);
+        }
+
+        .gradient-layer .g4 {
+            position: absolute;
+            bottom: 30%;
+            left: 10%;
+            width: 30%;
+            height: 30%;
+            background: radial-gradient(ellipse at 30% 60%, #544c45 0%, #1f140e 50%, transparent 80%);
+            opacity: 0.15;
+            border-radius: 50%;
+            filter: blur(100px);
+        }
+
+        /* ========== ХАОТИЧНЫЕ ЛИНИИ ========== */
+        .chaos-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
         }
 
         .chaos-lines svg {
@@ -39,7 +95,7 @@
             display: block;
         }
 
-        /* ========== НЕОНОВОЕ СВЕЧЕНИЕ (задний слой) ========== */
+        /* ========== НЕОНОВОЕ СВЕЧЕНИЕ ========== */
         .neon-glow {
             position: absolute;
             bottom: 80px;
@@ -47,30 +103,30 @@
             width: 400px;
             height: 400px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(201, 169, 110, 0.25) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(206, 170, 115, 0.25) 0%, rgba(190, 152, 100, 0.1) 40%, transparent 70%);
             z-index: 1;
             pointer-events: none;
-            filter: blur(20px);
-            animation: glowPulse 3s ease-in-out infinite alternate;
+            filter: blur(40px);
+            animation: glowPulse 3.5s ease-in-out infinite alternate;
         }
 
         @keyframes glowPulse {
             0% {
                 transform: scale(1);
-                opacity: 0.6;
+                opacity: 0.4;
             }
             100% {
-                transform: scale(1.3);
-                opacity: 1;
+                transform: scale(1.4);
+                opacity: 0.9;
             }
         }
 
-        /* ========== СИМВОЛ И ТЕКСТ (правый нижний угол) ========== */
+        /* ========== СИМВОЛ И ТЕКСТ ========== */
         .signature {
             position: absolute;
             bottom: 50px;
             right: 60px;
-            z-index: 2;
+            z-index: 3;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -79,13 +135,13 @@
 
         .symbol {
             font-size: 110px;
-            color: #c9a96e;
+            color: #ceaa73;
             text-shadow:
-                0 0 30px rgba(201, 169, 110, 0.6),
-                0 0 60px rgba(201, 169, 110, 0.3),
-                0 0 100px rgba(201, 169, 110, 0.15),
-                0 0 200px rgba(201, 169, 110, 0.08);
-            animation: neonPulse 2.5s ease-in-out infinite;
+                0 0 30px rgba(206, 170, 115, 0.6),
+                0 0 60px rgba(206, 170, 115, 0.3),
+                0 0 100px rgba(206, 170, 115, 0.15),
+                0 0 200px rgba(190, 152, 100, 0.08);
+            animation: neonPulse 2.8s ease-in-out infinite;
             font-weight: 400;
             letter-spacing: 2px;
             line-height: 1;
@@ -94,7 +150,7 @@
         .text {
             font-size: 18px;
             letter-spacing: 6px;
-            color: #c9a96e;
+            color: #ceaa73;
             opacity: 0.5;
             font-weight: 300;
             text-transform: uppercase;
@@ -104,31 +160,31 @@
         @keyframes neonPulse {
             0%, 100% {
                 text-shadow:
-                    0 0 30px rgba(201, 169, 110, 0.6),
-                    0 0 60px rgba(201, 169, 110, 0.3),
-                    0 0 100px rgba(201, 169, 110, 0.15);
+                    0 0 30px rgba(206, 170, 115, 0.6),
+                    0 0 60px rgba(206, 170, 115, 0.3),
+                    0 0 100px rgba(206, 170, 115, 0.15);
                 transform: scale(1);
             }
             50% {
                 text-shadow:
-                    0 0 50px rgba(201, 169, 110, 0.8),
-                    0 0 100px rgba(201, 169, 110, 0.4),
-                    0 0 150px rgba(201, 169, 110, 0.2),
-                    0 0 250px rgba(201, 169, 110, 0.08);
+                    0 0 50px rgba(206, 170, 115, 0.9),
+                    0 0 100px rgba(206, 170, 115, 0.4),
+                    0 0 150px rgba(206, 170, 115, 0.2),
+                    0 0 250px rgba(190, 152, 100, 0.1);
                 transform: scale(1.02);
             }
         }
 
-        /* ========== ФУТЕР (микро) ========== */
+        /* ========== ФУТЕР ========== */
         .footer {
             position: absolute;
             bottom: 20px;
             left: 40px;
-            z-index: 1;
+            z-index: 2;
             font-family: 'Georgia', serif;
             font-size: 9px;
             letter-spacing: 3px;
-            color: rgba(160, 152, 136, 0.15);
+            color: rgba(160, 152, 136, 0.12);
             pointer-events: none;
             text-transform: uppercase;
         }
@@ -159,71 +215,47 @@
                 bottom: 40px;
                 right: 50px;
             }
+            .gradient-layer .g1,
+            .gradient-layer .g2,
+            .gradient-layer .g3,
+            .gradient-layer .g4 {
+                filter: blur(60px);
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- ===== ГРАДИЕНТЫ ===== -->
+    <div class="gradient-layer">
+        <div class="g1"></div>
+        <div class="g2"></div>
+        <div class="g3"></div>
+        <div class="g4"></div>
+    </div>
+
     <!-- ===== ХАОТИЧНЫЕ ЛИНИИ ===== -->
     <div class="chaos-lines">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none">
-            <!-- Линия 1 — плавная волна -->
-            <path d="
-                M -50 200
-                C 200 100, 400 300, 600 180
-                C 800 60, 1000 250, 1200 150
-                C 1400 50, 1600 220, 1970 120
-            " stroke="#c9a96e" stroke-width="1.2" fill="none" opacity="0.2" />
-
-            <!-- Линия 2 — хаотичная, резкая -->
-            <path d="
-                M -50 400
-                C 150 350, 350 500, 550 380
-                C 750 260, 950 480, 1150 350
-                C 1350 220, 1550 450, 1970 320
-            " stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.15" />
-
-            <!-- Линия 3 — почти прямая с изгибом -->
-            <path d="
-                M -50 600
-                C 300 580, 500 650, 700 590
-                C 900 530, 1100 670, 1300 580
-                C 1500 490, 1700 650, 1970 560
-            " stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.12" />
-
-            <!-- Линия 4 — короткая хаотичная -->
-            <path d="
-                M 200 800
-                C 400 770, 500 870, 700 790
-                C 900 710, 1100 850, 1300 780
-            " stroke="#c9a96e" stroke-width="0.6" fill="none" opacity="0.1" />
-
-            <!-- Линия 5 — вертикальная дуга -->
-            <path d="
-                M 100 1080
-                C 120 800, 180 600, 160 400
-                C 140 200, 200 100, 180 -50
-            " stroke="#c9a96e" stroke-width="0.6" fill="none" opacity="0.07" />
-
-            <!-- Линия 6 — диагональная -->
-            <path d="
-                M -50 900
-                C 400 850, 800 950, 1200 880
-                C 1600 810, 1800 920, 1970 860
-            " stroke="#c9a96e" stroke-width="0.7" fill="none" opacity="0.08" />
+            <path d="M -50 200 C 200 100, 400 300, 600 180 C 800 60, 1000 250, 1200 150 C 1400 50, 1600 220, 1970 120" stroke="#ceaa73" stroke-width="1.2" fill="none" opacity="0.25" />
+            <path d="M -50 400 C 150 350, 350 500, 550 380 C 750 260, 950 480, 1150 350 C 1350 220, 1550 450, 1970 320" stroke="#be9864" stroke-width="0.8" fill="none" opacity="0.2" />
+            <path d="M -50 600 C 300 580, 500 650, 700 590 C 900 530, 1100 670, 1300 580 C 1500 490, 1700 650, 1970 560" stroke="#ab7840" stroke-width="1" fill="none" opacity="0.15" />
+            <path d="M 200 800 C 400 770, 500 870, 700 790 C 900 710, 1100 850, 1300 780" stroke="#9b8464" stroke-width="0.6" fill="none" opacity="0.12" />
+            <path d="M 100 1080 C 120 800, 180 600, 160 400 C 140 200, 200 100, 180 -50" stroke="#54444c" stroke-width="0.5" fill="none" opacity="0.1" />
+            <path d="M -50 900 C 400 850, 800 950, 1200 880 C 1600 810, 1800 920, 1970 860" stroke="#c5af91" stroke-width="0.7" fill="none" opacity="0.08" />
         </svg>
     </div>
 
     <!-- ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== -->
     <div class="neon-glow"></div>
 
-    <!-- ===== ПОДПИСЬ: СИМВОЛ + ТЕКСТ ===== -->
+    <!-- ===== ПОДПИСЬ ===== -->
     <div class="signature">
         <span class="text">SQST</span>
         <span class="symbol">✦</span>
     </div>
 
-    <!-- ===== МИКРО-ФУТЕР ===== -->
+    <!-- ===== ФУТЕР ===== -->
     <div class="footer">✦</div>
 
 </body>
