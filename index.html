@@ -3,298 +3,242 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Glassmorphism UI</title>
+    <title>SQST ✦ Фон — волны</title>
     <style>
-        /* ===== СБРОС ===== */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', -apple-system, sans-serif;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #2b1f16 0%, #0d0a08 50%, #3a281c 100%);
-            height: 100vh;
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: #0e0c0a;
             display: flex;
-            justify-content: center;
             align-items: center;
-            overflow: hidden;
-        }
-
-        .container {
+            justify-content: center;
             position: relative;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(145deg, #f3e5c8, #dfcbab);
-            border-radius: 24px;
-            padding: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* ===== КОНТЕЙНЕР С ВОЛНАМИ ===== */
+        .waves-container {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
             overflow: hidden;
         }
 
-        /* ===== ВЕРХНИЙ ТЕКСТ (без символов) ===== */
-        .header-text {
+        .waves-container svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* ===== ТЕНИ ПО БОКАМ ===== */
+        .shadow-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(14, 12, 10, 0.6) 0%, transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .shadow-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to left, rgba(14, 12, 10, 0.6) 0%, transparent 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== */
+        .center-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45%;
+            height: 55%;
+            background: radial-gradient(ellipse at center, #b68c4a 0%, #a46e37 30%, transparent 70%);
+            filter: blur(60px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* ===== ВЕРХНИЙ ТЕКСТ (как на картинке) ===== */
+        .top-text {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            z-index: 2;
+            color: rgba(255, 255, 255, 0.04);
             font-size: 14px;
-            color: #8c7152;
+            letter-spacing: 4px;
             font-weight: 300;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-            opacity: 0.4;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
             user-select: none;
         }
 
-        /* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
-        .left-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 120px;
-        }
-
-        .btn-pill {
-            width: 70px;
-            height: 30px;
-            background: #edd8b5;
-            border-radius: 15px;
-            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.5),
-                        inset -2px -2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .toggle-vert {
-            width: 45px;
-            height: 90px;
-            background: #edd8b5;
-            border-radius: 25px;
-            position: relative;
-            box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15),
-                        inset -3px -3px 6px rgba(255, 255, 255, 0.6);
-        }
-
-        .toggle-thumb {
+        /* ===== ПОДПИСЬ SQST ===== */
+        .signature {
             position: absolute;
-            bottom: 5px;
-            left: 5px;
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(145deg, #f5e4c3, #d4be9b);
-            border-radius: 50%;
-            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        /* ===== СТЕКЛЯННОЕ ОКНО ===== */
-        .glass-window {
-            position: absolute;
-            top: 60px;
-            left: 140px;
-            width: 330px;
-            height: 380px;
-            background: rgba(245, 235, 215, 0.45);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
-        .top-toolbar {
-            display: flex;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 6px;
-            border-radius: 12px;
-        }
-
-        .tool-btn {
-            height: 28px;
-            background: #ebd8b5;
-            border-radius: 8px;
-            border: none;
-            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .tool-btn.small { width: 28px; }
-        .tool-btn.medium { width: 45px; }
-        .tool-btn.large {
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8c7152;
-            font-size: 18px;
-            font-weight: 300;
-        }
-
-        /* ===== ЦЕНТРАЛЬНАЯ ЗВЕЗДА ✦ ===== */
-        .star-display {
-            height: 110px;
-            background: linear-gradient(135deg, #593922, #3d2414);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .star {
-            color: #edd8b5;
-            font-size: 48px;
-            text-shadow: 0 0 30px rgba(237, 216, 181, 0.15);
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        /* ===== СЛАЙДЕРЫ ===== */
-        .slider-row {
-            height: 45px;
-            background: rgba(255, 248, 235, 0.7);
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            padding: 0 10px;
-            position: relative;
-            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .slider-thumb {
-            width: 60px;
-            height: 30px;
-            background: #d4be9b;
-            border-radius: 15px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-        }
-
-        .slider-thumb.left { margin-left: 40px; }
-        .slider-thumb.right { width: 80px; }
-
-        .slider-row .icon-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 12px;
-            background: #c5ad8c;
-            border: none;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .slider-row .icon-btn.light {
-            background: #ebd8b5;
-        }
-
-        /* ===== НИЖНИЕ КНОПКИ ===== */
-        .bottom-icons {
-            position: absolute;
-            bottom: 15px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .icon-btn-round {
-            width: 32px;
-            height: 32px;
-            background: #ebd8b5;
-            border-radius: 50%;
-            border: none;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-            cursor: pointer;
-            color: #8c7152;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ===== ПОДПИСЬ SQST (мелко, снизу слева) ===== */
-        .sqst-signature {
-            position: absolute;
-            bottom: 12px;
-            left: 24px;
-            font-size: 9px;
-            letter-spacing: 4px;
-            color: rgba(140, 113, 82, 0.1);
+            bottom: 30px;
+            right: 40px;
+            z-index: 2;
+            font-family: 'Georgia', serif;
+            color: rgba(206, 170, 115, 0.04);
+            font-size: 10px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             user-select: none;
-            font-weight: 300;
         }
 
         /* ===== АДАПТАЦИЯ ===== */
-        @media (max-width: 540px) {
-            .container {
-                transform: scale(0.9);
-            }
-        }
-        @media (max-width: 480px) {
-            .container {
-                transform: scale(0.75);
-            }
-        }
-        @media (max-width: 400px) {
-            .container {
-                transform: scale(0.6);
+        @media (max-width: 1920px) {
+            body {
+                width: 100vw;
+                height: 100vh;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <!-- ===== ВОЛНЫ (SVG) ===== -->
+    <div class="waves-container">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#0e0c0a" />
+                    <stop offset="15%" stop-color="#343434" />
+                    <stop offset="30%" stop-color="#50392b" />
+                    <stop offset="45%" stop-color="#74563c" />
+                    <stop offset="55%" stop-color="#b68c4a" />
+                    <stop offset="65%" stop-color="#a46e37" />
+                    <stop offset="80%" stop-color="#4d2714" />
+                    <stop offset="90%" stop-color="#343434" />
+                    <stop offset="100%" stop-color="#0e0c0a" />
+                </linearGradient>
 
-        <!-- Верхний текст (без символов) -->
-        <div class="header-text">#art</div>
+                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#0e0c0a" />
+                    <stop offset="20%" stop-color="#50392b" />
+                    <stop offset="40%" stop-color="#b68c4a" />
+                    <stop offset="60%" stop-color="#a46e37" />
+                    <stop offset="80%" stop-color="#4d2714" />
+                    <stop offset="100%" stop-color="#0e0c0a" />
+                </linearGradient>
+            </defs>
 
-        <!-- Левая панель -->
-        <div class="left-panel">
-            <div class="btn-pill"></div>
-            <div class="toggle-vert">
-                <div class="toggle-thumb"></div>
-            </div>
-        </div>
+            <!-- Фон -->
+            <rect width="1920" height="1080" fill="url(#grad1)" />
 
-        <!-- Стеклянное окно -->
-        <div class="glass-window">
+            <!-- Волна 1 — верхняя -->
+            <path d="
+                M 0 200
+                C 300 80, 500 350, 800 180
+                C 1100 10, 1300 300, 1600 150
+                C 1800 70, 1900 200, 1920 220
+                L 1920 0
+                L 0 0
+                Z
+            " fill="#743e1a" opacity="0.15" />
 
-            <!-- Верхняя панель -->
-            <div class="top-toolbar">
-                <div class="tool-btn small"></div>
-                <div class="tool-btn medium"></div>
-                <div class="tool-btn medium"></div>
-                <div class="tool-btn large">+</div>
-            </div>
+            <!-- Волна 2 — основная, через центр -->
+            <path d="
+                M 0 400
+                C 200 250, 400 550, 700 380
+                C 1000 210, 1200 500, 1500 350
+                C 1700 260, 1850 400, 1920 450
+                L 1920 1080
+                L 0 1080
+                Z
+            " fill="url(#grad2)" opacity="0.4" />
 
-            <!-- Звезда — единственный символ ✦ -->
-            <div class="star-display">
-                <div class="star">✦</div>
-            </div>
+            <!-- Волна 3 — нижняя -->
+            <path d="
+                M 0 650
+                C 300 500, 500 750, 800 600
+                C 1100 450, 1300 700, 1600 580
+                C 1800 500, 1900 620, 1920 650
+                L 1920 1080
+                L 0 1080
+                Z
+            " fill="#74563c" opacity="0.2" />
 
-            <!-- Слайдер 1 -->
-            <div class="slider-row">
-                <div class="slider-thumb left"></div>
-            </div>
+            <!-- Волна 4 — светлая полоса -->
+            <path d="
+                M 0 500
+                C 200 420, 400 580, 700 480
+                C 1000 380, 1200 550, 1500 460
+                C 1700 400, 1850 480, 1920 520
+                L 1920 650
+                L 0 650
+                Z
+            " fill="#b68c4a" opacity="0.08" />
 
-            <!-- Слайдер 2 -->
-            <div class="slider-row" style="justify-content: space-between;">
-                <div class="icon-btn"></div>
-                <div class="slider-thumb right"></div>
-                <div class="icon-btn light"></div>
-            </div>
+            <!-- Волна 5 — диагональная тень слева -->
+            <path d="
+                M 0 0
+                C 300 200, 400 400, 350 600
+                C 300 800, 200 900, 0 1080
+                L 0 0
+                Z
+            " fill="#0e0c0a" opacity="0.3" />
 
-        </div>
+            <!-- Волна 6 — диагональная тень справа -->
+            <path d="
+                M 1920 0
+                C 1600 200, 1500 400, 1550 600
+                C 1600 800, 1700 900, 1920 1080
+                L 1920 0
+                Z
+            " fill="#0e0c0a" opacity="0.3" />
 
-        <!-- Нижние кнопки -->
-        <div class="bottom-icons">
-            <button class="icon-btn-round">◯</button>
-            <button class="icon-btn-round">◯</button>
-        </div>
+            <!-- Волна 7 — тёмная нижняя -->
+            <path d="
+                M 0 800
+                C 400 700, 800 900, 1200 800
+                C 1600 700, 1800 850, 1920 800
+                L 1920 1080
+                L 0 1080
+                Z
+            " fill="#4d2714" opacity="0.15" />
 
-        <!-- Подпись SQST -->
-        <div class="sqst-signature">SQST ✦</div>
-
+            <!-- Волна 8 — мелкая деталь -->
+            <path d="
+                M 0 300
+                C 200 280, 350 340, 500 300
+                C 700 250, 850 320, 1000 280
+                C 1200 230, 1400 310, 1600 270
+                C 1800 230, 1900 290, 1920 280
+            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.08" />
+        </svg>
     </div>
+
+    <!-- ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== -->
+    <div class="center-glow"></div>
+
+    <!-- ===== ТЕНИ ПО БОКАМ ===== -->
+    <div class="shadow-left"></div>
+    <div class="shadow-right"></div>
+
+    <!-- ===== ВЕРХНИЙ ТЕКСТ ===== -->
+    <div class="top-text">✦ interface</div>
+
+    <!-- ===== ПОДПИСЬ ===== -->
+    <div class="signature">SQST ✦</div>
 
 </body>
 </html>
