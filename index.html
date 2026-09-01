@@ -1,584 +1,300 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SQST ✦ Glassmorphic UI</title>
-  <style>
-    /* ===== СБРОС И БАЗА ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glassmorphism UI</title>
+    <style>
+        /* ===== СБРОС ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, sans-serif;
+        }
 
-    body {
-      background: #1a1614;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      overflow: hidden;
-    }
+        body {
+            background: linear-gradient(135deg, #2b1f16 0%, #0d0a08 50%, #3a281c 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-    .scene {
-      position: relative;
-      width: 1100px;
-      height: 700px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(145deg, #f3e5c8, #dfcbab);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
 
-    /* ===== ФОНОВЫЕ СВЕЧЕНИЯ ===== */
-    .glow-left {
-      position: absolute;
-      top: -15%;
-      left: -12%;
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
-      background: #d4a373;
-      filter: blur(130px);
-      opacity: 0.30;
-      mix-blend-mode: screen;
-    }
+        /* ===== ВЕРХНИЙ ТЕКСТ (без символов) ===== */
+        .header-text {
+            font-size: 14px;
+            color: #8c7152;
+            font-weight: 300;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            opacity: 0.4;
+            user-select: none;
+        }
 
-    .glow-right {
-      position: absolute;
-      bottom: -15%;
-      right: -12%;
-      width: 620px;
-      height: 620px;
-      border-radius: 50%;
-      background: #b07d4a;
-      filter: blur(150px);
-      opacity: 0.22;
-      mix-blend-mode: screen;
-    }
+        /* ===== ЛЕВАЯ ПАНЕЛЬ ===== */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 120px;
+        }
 
-    /* ===== ВЕРХНИЙ ТЕКСТ ===== */
-    .text-top-left {
-      position: absolute;
-      top: 30px;
-      left: 55px;
-      color: #d4a373;
-      font-size: 12px;
-      letter-spacing: 4px;
-      font-weight: 600;
-      text-transform: uppercase;
-      opacity: 0.75;
-      user-select: none;
-    }
+        .btn-pill {
+            width: 70px;
+            height: 30px;
+            background: #edd8b5;
+            border-radius: 15px;
+            box-shadow: inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+                        inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    .text-top-right {
-      position: absolute;
-      top: 30px;
-      right: 55px;
-      color: #d4a373;
-      font-size: 12px;
-      display: flex;
-      gap: 24px;
-      letter-spacing: 2px;
-      font-family: "Courier New", monospace;
-      opacity: 0.75;
-      user-select: none;
-    }
+        .toggle-vert {
+            width: 45px;
+            height: 90px;
+            background: #edd8b5;
+            border-radius: 25px;
+            position: relative;
+            box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.15),
+                        inset -3px -3px 6px rgba(255, 255, 255, 0.6);
+        }
 
-    /* ===== ГЛАВНАЯ КАРТОЧКА ===== */
-    .main-card {
-      position: relative;
-      width: 86%;
-      height: 74%;
-      background: #fdfcf0;
-      border-radius: 48px;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-      display: flex;
-      z-index: 10;
-    }
+        .toggle-thumb {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(145deg, #f5e4c3, #d4be9b);
+            border-radius: 50%;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        }
 
-    /* ===== ЛЕВАЯ ЧАСТЬ ===== */
-    .left-content {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 44%;
-      padding: 60px 0 40px 45px;
-    }
+        /* ===== СТЕКЛЯННОЕ ОКНО ===== */
+        .glass-window {
+            position: absolute;
+            top: 60px;
+            left: 140px;
+            width: 330px;
+            height: 380px;
+            background: rgba(245, 235, 215, 0.45);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
 
-    .left-content .headline {
-      color: #4a3728;
-      font-size: 30px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      opacity: 0.90;
-      margin-bottom: 30px;
-    }
+        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
+        .top-toolbar {
+            display: flex;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 6px;
+            border-radius: 12px;
+        }
 
-    .spacer {
-      flex: 1;
-    }
+        .tool-btn {
+            height: 28px;
+            background: #ebd8b5;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    /* ===== ДЕКОРАТИВНЫЕ ВИДЖЕТЫ ===== */
-    .widgets {
-      display: flex;
-      gap: 24px;
-      align-items: flex-end;
-      margin-top: auto;
-    }
+        .tool-btn.small { width: 28px; }
+        .tool-btn.medium { width: 45px; }
+        .tool-btn.large {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8c7152;
+            font-size: 18px;
+            font-weight: 300;
+        }
 
-    .widget-vertical {
-      width: 82px;
-      height: 195px;
-      background: linear-gradient(to bottom, #d5ae69 0%, #e5c192 45%, #f2d5cf 100%);
-      border-radius: 9999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      box-shadow: inset 0 2px 8px rgba(255, 255, 255, 0.4);
-      position: relative;
-      overflow: hidden;
-      padding-bottom: 30px;
-    }
+        /* ===== ЦЕНТРАЛЬНАЯ ЗВЕЗДА ✦ ===== */
+        .star-display {
+            height: 110px;
+            background: linear-gradient(135deg, #593922, #3d2414);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-    .widget-vertical::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 55%;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35), transparent);
-      pointer-events: none;
-    }
+        .star {
+            color: #edd8b5;
+            font-size: 48px;
+            text-shadow: 0 0 30px rgba(237, 216, 181, 0.15);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
 
-    .infinity-icon {
-      position: relative;
-      z-index: 2;
-      width: 30px;
-      height: 30px;
-      border: 2px solid rgba(74, 55, 40, 0.65);
-      border-radius: 50%;
-      margin-bottom: 30px;
-    }
-    .infinity-icon::after {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 12px;
-      height: 100%;
-      background: linear-gradient(to bottom, #d5ae69, #e5c192);
-      border-radius: 50%;
-    }
+        /* ===== СЛАЙДЕРЫ ===== */
+        .slider-row {
+            height: 45px;
+            background: rgba(255, 248, 235, 0.7);
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            position: relative;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
+        }
 
-    .widget-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding-bottom: 10px;
-    }
+        .slider-thumb {
+            width: 60px;
+            height: 30px;
+            background: #d4be9b;
+            border-radius: 15px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+        }
 
-    .pill-1 {
-      width: 115px;
-      height: 46px;
-      border-radius: 9999px;
-      border: 1px solid rgba(213, 174, 105, 0.45);
-      background: rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: center;
-      padding: 0 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-    .pill-1 .dot {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #f2d5cf;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
+        .slider-thumb.left { margin-left: 40px; }
+        .slider-thumb.right { width: 80px; }
 
-    .pill-2 {
-      width: 82px;
-      height: 46px;
-      border-radius: 9999px;
-      background: #eae3d9;
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
-    }
+        .slider-row .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 12px;
+            background: #c5ad8c;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    /* ===== СТЕКЛЯННАЯ ПАНЕЛЬ ===== */
-    .glass-panel {
-      position: absolute;
-      right: -5%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 60%;
-      height: 112%;
-      background: rgba(255, 255, 255, 0.20);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
-      border-radius: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.50);
-      box-shadow: -18px 18px 45px rgba(0, 0, 0, 0.18);
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      z-index: 20;
-    }
+        .slider-row .icon-btn.light {
+            background: #ebd8b5;
+        }
 
-    /* ===== НАВИГАЦИЯ ===== */
-    .glass-nav {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-bottom: 30px;
-    }
+        /* ===== НИЖНИЕ КНОПКИ ===== */
+        .bottom-icons {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
 
-    .nav-pill {
-      height: 38px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.30);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.40);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    }
-    .nav-pill.small {
-      width: 46px;
-    }
-    .nav-pill.large {
-      width: 80px;
-    }
+        .icon-btn-round {
+            width: 32px;
+            height: 32px;
+            background: #ebd8b5;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            color: #8c7152;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .nav-plus {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.42);
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #4a3728;
-      font-size: 22px;
-      font-weight: 300;
-      line-height: 1;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-      transition: background 0.2s;
-    }
-    .nav-plus:hover {
-      background: rgba(255, 255, 255, 0.55);
-    }
+        /* ===== ПОДПИСЬ SQST (мелко, снизу слева) ===== */
+        .sqst-signature {
+            position: absolute;
+            bottom: 12px;
+            left: 24px;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: rgba(140, 113, 82, 0.1);
+            text-transform: uppercase;
+            user-select: none;
+            font-weight: 300;
+        }
 
-    /* ===== ЦЕНТРАЛЬНАЯ ЗВЕЗДА ✦ ===== */
-    .center-graphic {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .star-symbol {
-      font-size: 90px;
-      color: #c5a059;
-      opacity: 0.85;
-      font-weight: 300;
-      letter-spacing: 4px;
-      text-shadow: 0 0 40px rgba(197, 160, 89, 0.1);
-    }
-
-    /* ===== НИЖНИЕ СЛАТЫ ===== */
-    .slats {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: auto;
-    }
-
-    .slat-1 {
-      width: 100%;
-      height: 60px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.30);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.50);
-      display: flex;
-      align-items: center;
-      padding: 0 6px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
-      position: relative;
-      overflow: hidden;
-    }
-    .slat-1::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.40), transparent);
-      pointer-events: none;
-    }
-    .slat-1 .slat-dot {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #f2d5cf;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    .slat-1 .slat-gold-pill {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-    }
-    .slat-1 .gold-bar {
-      width: 100px;
-      height: 24px;
-      border-radius: 9999px;
-      background: linear-gradient(to right, #d5ae69, #c5a059);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-      opacity: 0.9;
-    }
-
-    .slat-2 {
-      width: 100%;
-      height: 60px;
-      border-radius: 9999px;
-      background: #fdfcf0;
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding: 0 22px;
-    }
-    .slat-2 .cmd-icon {
-      font-size: 22px;
-      color: #c5a059;
-      font-weight: 300;
-    }
-
-    .slat-3 {
-      width: 100%;
-      height: 60px;
-      display: flex;
-      gap: 14px;
-    }
-    .slat-3 .dark-part {
-      width: 34%;
-      height: 100%;
-      border-radius: 9999px;
-      background: #2a221b;
-      border: 1px solid #3a2c22;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .slat-3 .dark-part .gold-circle {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #d5ae69, #b07d4a);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.4);
-    }
-    .slat-3 .dark-part .gold-circle .inner-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #1a1614;
-    }
-    .slat-3 .light-part {
-      width: 66%;
-      height: 100%;
-      border-radius: 9999px;
-      background: #fdfcf0;
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 22px;
-    }
-    .slat-3 .light-part .slider-line {
-      width: 42px;
-      height: 6px;
-      border-radius: 3px;
-      background: #dccdbf;
-    }
-
-    .grid-icon {
-      font-size: 20px;
-      color: #c5a059;
-      font-weight: 300;
-    }
-
-    /* ===== ПЛАВАЮЩИЕ КНОПКИ ===== */
-    .floating-actions {
-      position: absolute;
-      bottom: 34px;
-      right: 55px;
-      display: flex;
-      gap: 16px;
-      z-index: 30;
-    }
-    .float-btn {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: rgba(58, 44, 34, 0.40);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      transition: background 0.2s;
-      font-size: 22px;
-      color: #d5ae69;
-    }
-    .float-btn:hover {
-      background: rgba(58, 44, 34, 0.60);
-    }
-
-    /* ===== ПОДПИСЬ SQST ===== */
-    .sqst-signature {
-      position: absolute;
-      bottom: 16px;
-      left: 30px;
-      z-index: 30;
-      font-family: 'Georgia', serif;
-      color: rgba(206, 170, 115, 0.06);
-      font-size: 9px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      user-select: none;
-    }
-
-    /* ===== АДАПТАЦИЯ ===== */
-    @media (max-width: 1100px) {
-      .scene {
-        transform: scale(0.8);
-      }
-    }
-    @media (max-width: 860px) {
-      .scene {
-        transform: scale(0.6);
-      }
-    }
-    @media (max-width: 640px) {
-      .scene {
-        transform: scale(0.45);
-      }
-    }
-  </style>
+        /* ===== АДАПТАЦИЯ ===== */
+        @media (max-width: 540px) {
+            .container {
+                transform: scale(0.9);
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                transform: scale(0.75);
+            }
+        }
+        @media (max-width: 400px) {
+            .container {
+                transform: scale(0.6);
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="scene">
 
-    <!-- Фоновые свечения -->
-    <div class="glow-left"></div>
-    <div class="glow-right"></div>
+    <div class="container">
 
-    <!-- Верхние тексты -->
-    <div class="text-top-left">✦ SQST</div>
-    <div class="text-top-right">
-      <span>CV4</span>
-      <span>xaa</span>
-      <span>TQR43 )</span>
-    </div>
+        <!-- Верхний текст (без символов) -->
+        <div class="header-text">#art</div>
 
-    <!-- Главная карточка -->
-    <div class="main-card">
-
-      <!-- Левая часть -->
-      <div class="left-content">
-        <div class="headline">✦ #arTYh)</div>
-        <div class="spacer"></div>
-
-        <div class="widgets">
-          <div class="widget-vertical">
-            <div class="infinity-icon"></div>
-          </div>
-          <div class="widget-column">
-            <div class="pill-1">
-              <div class="dot"></div>
+        <!-- Левая панель -->
+        <div class="left-panel">
+            <div class="btn-pill"></div>
+            <div class="toggle-vert">
+                <div class="toggle-thumb"></div>
             </div>
-            <div class="pill-2"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Стеклянная панель -->
-    <div class="glass-panel">
-
-      <!-- Навигация -->
-      <div class="glass-nav">
-        <div class="nav-pill small"></div>
-        <div class="nav-pill large"></div>
-        <div class="nav-plus">✦</div>
-      </div>
-
-      <!-- Центральная звезда ✦ -->
-      <div class="center-graphic">
-        <div class="star-symbol">✦</div>
-      </div>
-
-      <!-- Нижние слаты -->
-      <div class="slats">
-
-        <!-- Слат 1 -->
-        <div class="slat-1">
-          <div class="slat-dot"></div>
-          <div class="slat-gold-pill">
-            <div class="gold-bar"></div>
-          </div>
         </div>
 
-        <!-- Слат 2 -->
-        <div class="slat-2">
-          <div class="cmd-icon">✦</div>
-        </div>
+        <!-- Стеклянное окно -->
+        <div class="glass-window">
 
-        <!-- Слат 3 -->
-        <div class="slat-3">
-          <div class="dark-part">
-            <div class="gold-circle">
-              <div class="inner-dot"></div>
+            <!-- Верхняя панель -->
+            <div class="top-toolbar">
+                <div class="tool-btn small"></div>
+                <div class="tool-btn medium"></div>
+                <div class="tool-btn medium"></div>
+                <div class="tool-btn large">+</div>
             </div>
-          </div>
-          <div class="light-part">
-            <div class="slider-line"></div>
-            <div class="grid-icon">✦</div>
-          </div>
+
+            <!-- Звезда — единственный символ ✦ -->
+            <div class="star-display">
+                <div class="star">✦</div>
+            </div>
+
+            <!-- Слайдер 1 -->
+            <div class="slider-row">
+                <div class="slider-thumb left"></div>
+            </div>
+
+            <!-- Слайдер 2 -->
+            <div class="slider-row" style="justify-content: space-between;">
+                <div class="icon-btn"></div>
+                <div class="slider-thumb right"></div>
+                <div class="icon-btn light"></div>
+            </div>
+
         </div>
 
-      </div>
+        <!-- Нижние кнопки -->
+        <div class="bottom-icons">
+            <button class="icon-btn-round">◯</button>
+            <button class="icon-btn-round">◯</button>
+        </div>
+
+        <!-- Подпись SQST -->
+        <div class="sqst-signature">SQST ✦</div>
+
     </div>
 
-    <!-- Плавающие кнопки -->
-    <div class="floating-actions">
-      <div class="float-btn">✦</div>
-      <div class="float-btn">✦</div>
-    </div>
-
-    <!-- Подпись -->
-    <div class="sqst-signature">SQST ✦</div>
-
-  </div>
 </body>
 </html>
