@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Фон — волны</title>
+    <title>SQST ✦ Фон — вертикальные волны</title>
     <style>
         * {
             margin: 0;
@@ -37,14 +37,29 @@
             display: block;
         }
 
-        /* ===== ТЕНИ ПО БОКАМ ===== */
+        /* ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== */
+        .center-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45%;
+            height: 65%;
+            background: radial-gradient(ellipse at center, #b68c4a 0%, #a46e37 25%, #74563c 50%, transparent 70%);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* ===== ТЕНИ ПО БОКАМ (вертикальные) ===== */
         .shadow-left {
             position: absolute;
             top: 0;
             left: 0;
-            width: 30%;
+            width: 25%;
             height: 100%;
-            background: linear-gradient(to right, rgba(14, 12, 10, 0.6) 0%, transparent 100%);
+            background: linear-gradient(to right, rgba(14, 12, 10, 0.7) 0%, transparent 100%);
             z-index: 1;
             pointer-events: none;
         }
@@ -53,35 +68,20 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 30%;
+            width: 25%;
             height: 100%;
-            background: linear-gradient(to left, rgba(14, 12, 10, 0.6) 0%, transparent 100%);
+            background: linear-gradient(to left, rgba(14, 12, 10, 0.7) 0%, transparent 100%);
             z-index: 1;
             pointer-events: none;
         }
 
-        /* ===== СВЕТЛАЯ ОБЛАСТЬ В ЦЕНТРЕ ===== */
-        .center-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 45%;
-            height: 55%;
-            background: radial-gradient(ellipse at center, #b68c4a 0%, #a46e37 30%, transparent 70%);
-            filter: blur(60px);
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.7;
-        }
-
-        /* ===== ВЕРХНИЙ ТЕКСТ (как на картинке) ===== */
+        /* ===== ВЕРХНИЙ ТЕКСТ ===== */
         .top-text {
             position: absolute;
             top: 40px;
             left: 50px;
             z-index: 2;
-            color: rgba(255, 255, 255, 0.04);
+            color: rgba(255, 255, 255, 0.03);
             font-size: 14px;
             letter-spacing: 4px;
             font-weight: 300;
@@ -115,115 +115,138 @@
 </head>
 <body>
 
-    <!-- ===== ВОЛНЫ (SVG) ===== -->
+    <!-- ===== ВЕРТИКАЛЬНЫЕ ВОЛНЫ (SVG) ===== -->
     <div class="waves-container">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <!-- Горизонтальный градиент: тёмные края → светлый центр -->
+                <linearGradient id="gradMain" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#0e0c0a" />
                     <stop offset="15%" stop-color="#343434" />
-                    <stop offset="30%" stop-color="#50392b" />
-                    <stop offset="45%" stop-color="#74563c" />
-                    <stop offset="55%" stop-color="#b68c4a" />
-                    <stop offset="65%" stop-color="#a46e37" />
-                    <stop offset="80%" stop-color="#4d2714" />
-                    <stop offset="90%" stop-color="#343434" />
-                    <stop offset="100%" stop-color="#0e0c0a" />
-                </linearGradient>
-
-                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#0e0c0a" />
-                    <stop offset="20%" stop-color="#50392b" />
-                    <stop offset="40%" stop-color="#b68c4a" />
+                    <stop offset="30%" stop-color="#4d2714" />
+                    <stop offset="40%" stop-color="#50392b" />
+                    <stop offset="50%" stop-color="#74563c" />
                     <stop offset="60%" stop-color="#a46e37" />
-                    <stop offset="80%" stop-color="#4d2714" />
+                    <stop offset="70%" stop-color="#b68c4a" />
+                    <stop offset="80%" stop-color="#a46e37" />
+                    <stop offset="90%" stop-color="#4d2714" />
                     <stop offset="100%" stop-color="#0e0c0a" />
                 </linearGradient>
             </defs>
 
-            <!-- Фон -->
-            <rect width="1920" height="1080" fill="url(#grad1)" />
+            <!-- Базовый фон -->
+            <rect width="1920" height="1080" fill="url(#gradMain)" opacity="1" />
 
-            <!-- Волна 1 — верхняя -->
+            <!-- ===== ВЕРТИКАЛЬНЫЕ ВОЛНЫ ===== -->
+
+            <!-- Волна 1 — левая -->
             <path d="
-                M 0 200
-                C 300 80, 500 350, 800 180
-                C 1100 10, 1300 300, 1600 150
-                C 1800 70, 1900 200, 1920 220
-                L 1920 0
+                M 0 0
+                C 80 200, 40 400, 80 600
+                C 120 800, 60 1000, 0 1080
                 L 0 0
                 Z
-            " fill="#743e1a" opacity="0.15" />
+            " fill="#4d2714" opacity="0.3" />
 
-            <!-- Волна 2 — основная, через центр -->
+            <!-- Волна 2 — ближе к центру слева -->
             <path d="
-                M 0 400
-                C 200 250, 400 550, 700 380
-                C 1000 210, 1200 500, 1500 350
-                C 1700 260, 1850 400, 1920 450
-                L 1920 1080
-                L 0 1080
+                M 200 0
+                C 300 180, 250 400, 300 600
+                C 350 800, 280 1000, 200 1080
+                L 200 0
                 Z
-            " fill="url(#grad2)" opacity="0.4" />
+            " fill="#50392b" opacity="0.25" />
 
-            <!-- Волна 3 — нижняя -->
+            <!-- Волна 3 — левая центральная -->
             <path d="
-                M 0 650
-                C 300 500, 500 750, 800 600
-                C 1100 450, 1300 700, 1600 580
-                C 1800 500, 1900 620, 1920 650
-                L 1920 1080
-                L 0 1080
+                M 400 0
+                C 520 200, 460 400, 520 600
+                C 580 800, 500 1000, 400 1080
+                L 400 0
                 Z
             " fill="#74563c" opacity="0.2" />
 
-            <!-- Волна 4 — светлая полоса -->
+            <!-- Волна 4 — правая центральная -->
             <path d="
-                M 0 500
-                C 200 420, 400 580, 700 480
-                C 1000 380, 1200 550, 1500 460
-                C 1700 400, 1850 480, 1920 520
-                L 1920 650
-                L 0 650
+                M 1520 0
+                C 1400 200, 1460 400, 1400 600
+                C 1340 800, 1420 1000, 1520 1080
+                L 1520 0
+                Z
+            " fill="#74563c" opacity="0.2" />
+
+            <!-- Волна 5 — ближе к центру справа -->
+            <path d="
+                M 1720 0
+                C 1620 180, 1670 400, 1620 600
+                C 1570 800, 1640 1000, 1720 1080
+                L 1720 0
+                Z
+            " fill="#50392b" opacity="0.25" />
+
+            <!-- Волна 6 — правая -->
+            <path d="
+                M 1920 0
+                C 1840 200, 1880 400, 1840 600
+                C 1800 800, 1860 1000, 1920 1080
+                L 1920 0
+                Z
+            " fill="#4d2714" opacity="0.3" />
+
+            <!-- Волна 7 — светлая в центре -->
+            <path d="
+                M 700 0
+                C 820 250, 760 500, 820 750
+                C 880 1000, 800 1050, 700 1080
+                L 1220 1080
+                C 1120 1050, 1040 1000, 1100 750
+                C 1160 500, 1100 250, 1220 0
                 Z
             " fill="#b68c4a" opacity="0.08" />
 
-            <!-- Волна 5 — диагональная тень слева -->
+            <!-- Волна 8 — тонкая светлая линия в центре -->
+            <path d="
+                M 900 0
+                C 980 300, 920 600, 980 900
+                C 1040 1050, 1000 1080, 900 1080
+                L 1020 1080
+                C 940 1050, 980 900, 920 600
+                C 860 300, 920 0, 1020 0
+                Z
+            " fill="#b68c4a" opacity="0.05" />
+
+            <!-- Волна 9 — диагональная тень слева -->
             <path d="
                 M 0 0
-                C 300 200, 400 400, 350 600
-                C 300 800, 200 900, 0 1080
+                C 200 200, 300 500, 200 800
+                C 100 1000, 50 1050, 0 1080
                 L 0 0
                 Z
-            " fill="#0e0c0a" opacity="0.3" />
+            " fill="#0e0c0a" opacity="0.4" />
 
-            <!-- Волна 6 — диагональная тень справа -->
+            <!-- Волна 10 — диагональная тень справа -->
             <path d="
                 M 1920 0
-                C 1600 200, 1500 400, 1550 600
-                C 1600 800, 1700 900, 1920 1080
+                C 1720 200, 1620 500, 1720 800
+                C 1820 1000, 1870 1050, 1920 1080
                 L 1920 0
                 Z
-            " fill="#0e0c0a" opacity="0.3" />
+            " fill="#0e0c0a" opacity="0.4" />
 
-            <!-- Волна 7 — тёмная нижняя -->
+            <!-- Волна 11 — верхняя тонкая -->
             <path d="
-                M 0 800
-                C 400 700, 800 900, 1200 800
-                C 1600 700, 1800 850, 1920 800
-                L 1920 1080
-                L 0 1080
-                Z
-            " fill="#4d2714" opacity="0.15" />
+                M 0 100
+                C 300 0, 600 200, 900 50
+                C 1200 -100, 1500 150, 1920 80
+            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
 
-            <!-- Волна 8 — мелкая деталь -->
+            <!-- Волна 12 — нижняя тонкая -->
             <path d="
-                M 0 300
-                C 200 280, 350 340, 500 300
-                C 700 250, 850 320, 1000 280
-                C 1200 230, 1400 310, 1600 270
-                C 1800 230, 1900 290, 1920 280
-            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.08" />
+                M 0 980
+                C 300 1080, 600 880, 900 1030
+                C 1200 1180, 1500 930, 1920 1000
+            " stroke="#b68c4a" stroke-width="1.5" fill="none" opacity="0.06" />
+
         </svg>
     </div>
 
