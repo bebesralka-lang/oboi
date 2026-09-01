@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Интерфейс — тёмная тема</title>
+    <title>SQST ✦ Интерфейс — софт-неоморфизм</title>
     <style>
         /* ========== СБРОС ========== */
         * {
@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* ========== ФОН: РАЗМЫТЫЙ ГРАДИЕНТ ========== */
+        /* ========== ТЁМНЫЙ ФОН С РАЗМЫТЫМИ ПЯТНАМИ ========== */
         .bg {
             position: absolute;
             inset: 0;
@@ -37,226 +37,214 @@
             filter: blur(2px);
         }
 
-        /* ========== СВЕТОВЫЕ ПЯТНА (глубина) ========== */
-        .light-spot {
+        /* ===== ДОПОЛНИТЕЛЬНЫЕ ПЯТНА ДЛЯ ГЛУБИНЫ ===== */
+        .spot {
             position: absolute;
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(120px);
+            filter: blur(140px);
         }
+        .spot:nth-child(2) { top: -10%; right: -5%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(206, 170, 115, 0.06) 0%, transparent 70%); }
+        .spot:nth-child(3) { bottom: -10%; left: -5%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(190, 152, 100, 0.04) 0%, transparent 70%); }
+        .spot:nth-child(4) { top: 30%; left: 40%; width: 40%; height: 40%; background: radial-gradient(circle, rgba(171, 120, 64, 0.03) 0%, transparent 70%); }
 
-        .light-spot:nth-child(2) {
-            top: -10%;
-            right: -5%;
-            width: 60%;
-            height: 60%;
-            background: radial-gradient(circle, rgba(206, 170, 115, 0.08) 0%, transparent 70%);
-        }
-
-        .light-spot:nth-child(3) {
-            bottom: -10%;
-            left: -5%;
-            width: 50%;
-            height: 50%;
-            background: radial-gradient(circle, rgba(190, 152, 100, 0.06) 0%, transparent 70%);
-        }
-
-        /* ========== КОНТЕЙНЕР С ИНТЕРФЕЙСНЫМИ БЛОКАМИ ========== */
+        /* ========== КОНТЕЙНЕР С ПАНЕЛЯМИ ========== */
         .interface {
             position: relative;
             z-index: 1;
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
-            max-width: 900px;
+            max-width: 920px;
             justify-content: center;
             align-items: flex-start;
             padding: 20px;
         }
 
-        /* ===== БЛОКИ С МАТОВЫМ СТЕКЛОМ ===== */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
+        /* ===== ПАНЕЛИ С МАТОВЫМ СТЕКЛОМ ===== */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
             box-shadow:
-                0 20px 60px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
-            padding: 24px 28px 28px;
-            transition: 0.4s;
+                0 30px 80px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.01) inset;
+            padding: 26px 30px 30px;
             flex: 1 1 240px;
             min-width: 200px;
+            transition: none;
         }
 
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(206, 170, 115, 0.06);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
-            transform: translateY(-2px);
-        }
+        /* Разная высота для глубины */
+        .glass-panel:nth-child(1) { transform: translateY(0px); }
+        .glass-panel:nth-child(2) { transform: translateY(15px); }
+        .glass-panel:nth-child(3) { transform: translateY(-8px); }
 
-        .glass-card .title {
-            font-size: 11px;
-            letter-spacing: 3px;
+        .glass-panel .label {
+            font-size: 10px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: rgba(206, 170, 115, 0.3);
-            margin-bottom: 14px;
-            font-weight: 500;
-        }
-
-        .glass-card .title .gold {
-            color: rgba(206, 170, 115, 0.5);
-        }
-
-        /* ===== ЭЛЕМЕНТЫ УПРАВЛЕНИЯ ===== */
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-top: 4px;
-        }
-
-        .control-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .control-row .label {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.25);
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        .control-row .value {
-            font-size: 12px;
-            color: rgba(206, 170, 115, 0.5);
+            color: rgba(206, 170, 115, 0.15);
+            margin-bottom: 16px;
             font-weight: 400;
-            min-width: 24px;
-            text-align: right;
+        }
+
+        .glass-panel .label .accent {
+            color: rgba(206, 170, 115, 0.25);
         }
 
         /* ===== СЛАЙДЕРЫ ===== */
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 3px;
-            border-radius: 10px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.04);
-            transition: 0.3s;
-            cursor: pointer;
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ceaa73, #be9864);
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(206, 170, 115, 0.2);
-            border: none;
-        }
-
-        input[type="range"]::-moz-range-thumb {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ceaa73, #be9864);
-            cursor: pointer;
-            border: none;
-        }
-
-        /* ===== ПЕРЕКЛЮЧАТЕЛИ (TOGGLE) ===== */
-        .toggle {
+        .slider-row {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            gap: 12px;
         }
 
-        .toggle .track {
-            width: 36px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 30px;
+        .slider-row .name {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.12);
+            font-weight: 300;
+            min-width: 48px;
+            letter-spacing: 0.5px;
+        }
+
+        .slider-track {
+            flex: 1;
+            height: 3px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.03);
             position: relative;
-            transition: 0.4s;
-            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
-        .toggle .track .thumb {
+        .slider-track .fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, rgba(206, 170, 115, 0.2), rgba(206, 170, 115, 0.4));
+            width: 65%;
+        }
+
+        .slider-track .thumb {
             width: 14px;
             height: 14px;
-            background: radial-gradient(circle, #ceaa73, #be9864);
             border-radius: 50%;
+            background: radial-gradient(circle at 40% 35%, #ceaa73, #be9864);
+            position: absolute;
+            top: 50%;
+            left: 65%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 30px rgba(206, 170, 115, 0.08);
+        }
+
+        .slider-row .value {
+            font-size: 11px;
+            color: rgba(206, 170, 115, 0.25);
+            min-width: 28px;
+            text-align: right;
+            font-weight: 300;
+        }
+
+        /* ===== ПЕРЕКЛЮЧАТЕЛИ ===== */
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 2px;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toggle-track {
+            width: 36px;
+            height: 20px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-track .thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 35%, #ceaa73, #be9864);
             position: absolute;
             top: 2px;
             left: 2px;
-            transition: 0.4s;
-            box-shadow: 0 0 20px rgba(206, 170, 115, 0.1);
+            box-shadow: 0 0 20px rgba(206, 170, 115, 0.05);
+            transition: none;
         }
 
-        .toggle.active .track .thumb {
+        .toggle-track.active .thumb {
             left: 18px;
         }
 
-        .toggle .label {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.25);
+        .toggle-row .name {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.12);
             font-weight: 300;
             letter-spacing: 0.5px;
         }
 
         /* ===== КНОПКИ С ИКОНКАМИ ===== */
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 6px;
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 2px;
         }
 
         .icon-btn {
-            width: 40px;
-            height: 40px;
+            aspect-ratio: 1 / 1;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.08);
             font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: 0.4s;
             font-family: 'Segoe UI', sans-serif;
-            backdrop-filter: blur(4px);
-        }
-
-        .icon-btn:hover {
-            background: rgba(206, 170, 115, 0.04);
-            border-color: rgba(206, 170, 115, 0.08);
-            color: rgba(206, 170, 115, 0.4);
-            transform: scale(1.02);
+            transition: none;
         }
 
         .icon-btn .gold {
-            color: rgba(206, 170, 115, 0.3);
+            color: rgba(206, 170, 115, 0.1);
         }
 
-        .icon-btn .star {
-            font-size: 18px;
+        /* ===== ФУТЕРИСТЫЙ ТЕКСТ ===== */
+        .futuristic-text {
+            position: absolute;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+            z-index: 0;
+            font-weight: 300;
         }
 
-        /* ===== ИКОНКА ✦ В ПРАВОМ НИЖНЕМ УГЛУ ===== */
+        .futuristic-text:nth-child(5) { top: 60px; left: 40px; font-size: 14px; color: rgba(255, 255, 255, 0.02); }
+        .futuristic-text:nth-child(6) { top: 90px; left: 40px; font-size: 20px; color: rgba(255, 255, 255, 0.015); letter-spacing: 6px; }
+        .futuristic-text:nth-child(7) { bottom: 80px; left: 50px; font-size: 10px; color: rgba(255, 255, 255, 0.015); }
+        .futuristic-text:nth-child(8) { bottom: 60px; left: 50px; font-size: 14px; color: rgba(255, 255, 255, 0.01); letter-spacing: 4px; }
+        .futuristic-text:nth-child(9) { top: 40px; right: 40px; font-size: 12px; color: rgba(255, 255, 255, 0.02); text-align: right; }
+        .futuristic-text:nth-child(10) { bottom: 120px; right: 40px; font-size: 9px; color: rgba(255, 255, 255, 0.01); text-align: right; }
+
+        /* ===== ПОДПИСЬ ===== */
         .signature {
             position: absolute;
             bottom: 30px;
@@ -269,17 +257,16 @@
         }
 
         .signature .symbol {
-            font-size: 40px;
-            color: rgba(206, 170, 115, 0.15);
-            text-shadow: 0 0 40px rgba(206, 170, 115, 0.03);
-            letter-spacing: 2px;
+            font-size: 38px;
+            color: rgba(206, 170, 115, 0.08);
+            text-shadow: 0 0 40px rgba(206, 170, 115, 0.02);
             font-weight: 400;
         }
 
         .signature .text {
             font-size: 10px;
-            letter-spacing: 4px;
-            color: rgba(206, 170, 115, 0.04);
+            letter-spacing: 5px;
+            color: rgba(206, 170, 115, 0.03);
             text-transform: uppercase;
             font-weight: 300;
         }
@@ -296,109 +283,116 @@
             .interface {
                 padding: 10px;
                 gap: 16px;
+                max-width: 100%;
             }
-            .glass-card {
+            .glass-panel {
                 padding: 18px 16px 20px;
                 min-width: 140px;
                 flex: 1 1 160px;
             }
-            .glass-card .title {
-                font-size: 9px;
+            .glass-panel .label {
+                font-size: 8px;
                 letter-spacing: 2px;
             }
-            .control-row .label {
-                font-size: 10px;
-            }
-            .icon-btn {
-                width: 34px;
-                height: 34px;
-                font-size: 13px;
-                border-radius: 10px;
-            }
-            .signature .symbol {
-                font-size: 28px;
-            }
-            .signature .text {
-                font-size: 8px;
-                letter-spacing: 3px;
-            }
-            .signature {
-                bottom: 20px;
-                right: 20px;
-            }
+            .slider-row .name { font-size: 9px; min-width: 36px; }
+            .slider-row .value { font-size: 9px; min-width: 20px; }
+            .toggle-row .name { font-size: 9px; }
+            .icon-btn { font-size: 13px; border-radius: 10px; }
+            .futuristic-text { display: none; }
+            .signature .symbol { font-size: 24px; }
+            .signature .text { font-size: 8px; letter-spacing: 3px; }
+            .signature { bottom: 16px; right: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== ТЁМНЫЙ ФОН ===== -->
+    <!-- ===== ФОН ===== -->
     <div class="bg"></div>
-    <div class="light-spot"></div>
-    <div class="light-spot"></div>
+    <div class="spot"></div>
+    <div class="spot"></div>
+    <div class="spot"></div>
 
-    <!-- ===== ИНТЕРФЕЙСНЫЕ БЛОКИ ===== -->
+    <!-- ===== СТИЛИЗОВАННЫЙ ФУТЕРИСТЫЙ ТЕКСТ ===== -->
+    <div class="futuristic-text">OMGGso</div>
+    <div class="futuristic-text">#arTYh)</div>
+    <div class="futuristic-text">CVI xaa TOR43()</div>
+    <div class="futuristic-text">✦ interface v.2</div>
+    <div class="futuristic-text">SQST // design</div>
+    <div class="futuristic-text">neo.morphism // 2026</div>
+
+    <!-- ===== ПАНЕЛИ ===== -->
     <div class="interface">
 
-        <!-- ===== БЛОК 1: СЛАЙДЕРЫ ===== -->
-        <div class="glass-card">
-            <div class="title">✦ <span class="gold">Настройки</span></div>
-            <div class="control-group">
-                <div class="control-row">
-                    <span class="label">Яркость</span>
-                    <input type="range" min="0" max="100" value="65" />
-                    <span class="value">65%</span>
+        <!-- ===== ПАНЕЛЬ 1: СЛАЙДЕРЫ ===== -->
+        <div class="glass-panel">
+            <div class="label">✦ <span class="accent">контроль</span></div>
+            <div class="slider-group">
+                <div class="slider-row">
+                    <span class="name">яркость</span>
+                    <div class="slider-track">
+                        <div class="fill" style="width:65%;"></div>
+                        <div class="thumb" style="left:65%;"></div>
+                    </div>
+                    <span class="value">65</span>
                 </div>
-                <div class="control-row">
-                    <span class="label">Контраст</span>
-                    <input type="range" min="0" max="100" value="42" />
-                    <span class="value">42%</span>
+                <div class="slider-row">
+                    <span class="name">контраст</span>
+                    <div class="slider-track">
+                        <div class="fill" style="width:42%;"></div>
+                        <div class="thumb" style="left:42%;"></div>
+                    </div>
+                    <span class="value">42</span>
                 </div>
-                <div class="control-row">
-                    <span class="label">Свечение</span>
-                    <input type="range" min="0" max="100" value="80" />
-                    <span class="value">80%</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== БЛОК 2: ПЕРЕКЛЮЧАТЕЛИ ===== -->
-        <div class="glass-card">
-            <div class="title">✦ <span class="gold">Режимы</span></div>
-            <div class="control-group">
-                <div class="toggle active" onclick="this.classList.toggle('active')">
-                    <div class="track"><div class="thumb"></div></div>
-                    <span class="label">Неон</span>
-                </div>
-                <div class="toggle" onclick="this.classList.toggle('active')">
-                    <div class="track"><div class="thumb"></div></div>
-                    <span class="label">Гравировка</span>
-                </div>
-                <div class="toggle active" onclick="this.classList.toggle('active')">
-                    <div class="track"><div class="thumb"></div></div>
-                    <span class="label">Матовое стекло</span>
+                <div class="slider-row">
+                    <span class="name">свечение</span>
+                    <div class="slider-track">
+                        <div class="fill" style="width:80%;"></div>
+                        <div class="thumb" style="left:80%;"></div>
+                    </div>
+                    <span class="value">80</span>
                 </div>
             </div>
         </div>
 
-        <!-- ===== БЛОК 3: КНОПКИ С ИКОНКАМИ ===== -->
-        <div class="glass-card">
-            <div class="title">✦ <span class="gold">Инструменты</span></div>
-            <div class="btn-row">
-                <div class="icon-btn">✦</div>
-                <div class="icon-btn">✧</div>
-                <div class="icon-btn">⌘</div>
-                <div class="icon-btn">⚙</div>
-                <div class="icon-btn">✚</div>
-                <div class="icon-btn">◈</div>
-                <div class="icon-btn">⌂</div>
-                <div class="icon-btn">✦</div>
-            </div>
-            <div class="btn-row" style="margin-top: 6px;">
-                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:12px; color:rgba(206,170,115,0.2);">
-                    <span>✦</span> Применить
+        <!-- ===== ПАНЕЛЬ 2: ПЕРЕКЛЮЧАТЕЛИ ===== -->
+        <div class="glass-panel">
+            <div class="label">✦ <span class="accent">режимы</span></div>
+            <div class="toggle-group">
+                <div class="toggle-row">
+                    <div class="toggle-track active"><div class="thumb" style="left:18px;"></div></div>
+                    <span class="name">неон</span>
                 </div>
-                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:12px; color:rgba(255,255,255,0.1);">
-                    <span>✧</span> Сброс
+                <div class="toggle-row">
+                    <div class="toggle-track"><div class="thumb"></div></div>
+                    <span class="name">гравировка</span>
+                </div>
+                <div class="toggle-row">
+                    <div class="toggle-track active"><div class="thumb" style="left:18px;"></div></div>
+                    <span class="name">мат. стекло</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ПАНЕЛЬ 3: ИКОНКИ ===== -->
+        <div class="glass-panel">
+            <div class="label">✦ <span class="accent">инструменты</span></div>
+            <div class="icon-grid">
+                <div class="icon-btn"><span class="gold">✦</span></div>
+                <div class="icon-btn"><span class="gold">✧</span></div>
+                <div class="icon-btn"><span class="gold">⌘</span></div>
+                <div class="icon-btn"><span class="gold">⚙</span></div>
+                <div class="icon-btn"><span class="gold">✚</span></div>
+                <div class="icon-btn"><span class="gold">◈</span></div>
+                <div class="icon-btn"><span class="gold">⌂</span></div>
+                <div class="icon-btn"><span class="gold">✦</span></div>
+            </div>
+            <div style="display:flex; gap:8px; margin-top:10px;">
+                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:11px; color:rgba(206,170,115,0.06); border-radius:14px; padding:8px 0; aspect-ratio:auto;">
+                    <span class="gold">✦</span> применить
+                </div>
+                <div class="icon-btn" style="flex:1; justify-content:center; gap:6px; font-size:11px; color:rgba(255,255,255,0.03); border-radius:14px; padding:8px 0; aspect-ratio:auto;">
+                    <span>✧</span> сброс
                 </div>
             </div>
         </div>
@@ -410,22 +404,6 @@
         <span class="text">SQST</span>
         <span class="symbol">✦</span>
     </div>
-
-    <!-- ===== МИКРО-СКРИПТ ДЛЯ ТОГГЛОВ ===== -->
-    <script>
-        document.querySelectorAll('.toggle').forEach(t => {
-            t.addEventListener('click', function(e) {
-                // Не даём сработать дважды при клике на трек
-                if (e.target.closest('.track')) return;
-                this.classList.toggle('active');
-            });
-            // Клик по треку тоже переключает
-            t.querySelector('.track').addEventListener('click', function(e) {
-                e.stopPropagation();
-                this.closest('.toggle').classList.toggle('active');
-            });
-        });
-    </script>
 
 </body>
 </html>
