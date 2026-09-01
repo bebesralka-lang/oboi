@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQST ✦ Обои</title>
+    <style>
+        /* ========== СБРОС ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            background: #1a1818;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Georgia', serif;
+            position: relative;
+        }
+
+        /* ========== ГРАДИЕНТНЫЙ ФОН ========== */
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 30% 40%, #25252b 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, #1a1a1e 0%, transparent 50%),
+                #1a1818;
+            z-index: 0;
+        }
+
+        /* ========== ЗОЛОТЫЕ ТОЧКИ (декор) ========== */
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.06);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dot:nth-child(2) { width: 180px; height: 180px; top: 5%; left: 10%; }
+        .dot:nth-child(3) { width: 300px; height: 300px; bottom: 20%; left: 5%; }
+        .dot:nth-child(4) { width: 120px; height: 120px; top: 30%; right: 20%; }
+        .dot:nth-child(5) { width: 400px; height: 400px; bottom: -10%; right: 30%; }
+
+        /* ========== ВОЛНИСТАЯ ЛИНИЯ ========== */
+        .wave-line {
+            position: absolute;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .wave-line svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* ========== СИМВОЛ ✦ В ПРАВОМ НИЖНЕМ УГЛУ ========== */
+        .symbol {
+            position: absolute;
+            bottom: 50px;
+            right: 60px;
+            z-index: 2;
+            font-size: 120px;
+            color: #c9a96e;
+            text-shadow:
+                0 0 40px rgba(201, 169, 110, 0.15),
+                0 0 80px rgba(201, 169, 110, 0.06);
+            opacity: 0.85;
+            font-weight: 400;
+            letter-spacing: 2px;
+            animation: glowPulse 4s ease-in-out infinite;
+            font-family: 'Georgia', serif;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 40px rgba(201, 169, 110, 0.15),
+                    0 0 80px rgba(201, 169, 110, 0.06);
+                opacity: 0.85;
+            }
+            50% {
+                text-shadow:
+                    0 0 60px rgba(201, 169, 110, 0.25),
+                    0 0 120px rgba(201, 169, 110, 0.08);
+                opacity: 1;
+            }
+        }
+
+        /* ========== МЕЛКИЕ ЗОЛОТЫЕ ЧАСТИЦЫ ========== */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(201, 169, 110, 0.04);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle:nth-child(6) { width: 6px; height: 6px; top: 15%; left: 45%; }
+        .particle:nth-child(7) { width: 4px; height: 4px; top: 60%; left: 30%; }
+        .particle:nth-child(8) { width: 5px; height: 5px; top: 80%; left: 70%; }
+        .particle:nth-child(9) { width: 3px; height: 3px; top: 25%; right: 40%; }
+        .particle:nth-child(10) { width: 4px; height: 4px; top: 70%; right: 60%; }
+        .particle:nth-child(11) { width: 6px; height: 6px; top: 45%; left: 20%; }
+        .particle:nth-child(12) { width: 3px; height: 3px; top: 90%; right: 20%; }
+        .particle:nth-child(13) { width: 5px; height: 5px; top: 10%; right: 70%; }
+
+        /* ========== ФУТЕР (если нужен) ========== */
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            left: 40px;
+            z-index: 1;
+            font-family: 'Georgia', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(160, 152, 136, 0.15);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* ========== АДАПТАЦИЯ ПОД РАЗНЫЕ РАЗРЕШЕНИЯ ========== */
+        @media (max-width: 1920px) {
+            body {
+                width: 100vw;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ФОН ===== -->
+    <div class="bg-gradient"></div>
+
+    <!-- ===== ДЕКОР: БОЛЬШИЕ ЗОЛОТЫЕ ПЯТНА ===== -->
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+
+    <!-- ===== ДЕКОР: МЕЛКИЕ ЧАСТИЦЫ ===== -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- ===== ВОЛНИСТАЯ ЛИНИЯ ===== -->
+    <div class="wave-line">
+        <svg viewBox="0 0 1920 40" preserveAspectRatio="none">
+            <path d="
+                M 0 30
+                C 200 5, 400 55, 600 20
+                C 800 -15, 1000 45, 1200 15
+                C 1400 -15, 1600 45, 1920 10
+                L 1920 40
+                L 0 40
+                Z
+            " fill="rgba(201, 169, 110, 0.04)" />
+
+            <path d="
+                M 0 28
+                C 200 8, 400 50, 600 18
+                C 800 -10, 1000 40, 1200 12
+                C 1400 -10, 1600 40, 1920 8
+            " stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.15" />
+
+            <path d="
+                M 0 26
+                C 200 10, 400 45, 600 16
+                C 800 -6, 1000 35, 1200 10
+                C 1400 -6, 1600 35, 1920 6
+            " stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.07" />
+        </svg>
+    </div>
+
+    <!-- ===== СИМВОЛ ✦ В ПРАВОМ НИЖНЕМ УГЛУ ===== -->
+    <div class="symbol">✦</div>
+
+    <!-- ===== МИКРО-ФУТЕР ===== -->
+    <div class="footer">SQST</div>
+
+</body>
+</html>
