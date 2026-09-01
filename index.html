@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SQST ✦ Обои</title>
+    <title>SQST ✦ Обои — Золотой неон</title>
     <style>
         /* ========== СБРОС ========== */
         * {
@@ -16,7 +16,7 @@
             width: 1920px;
             height: 1080px;
             overflow: hidden;
-            background: #1a1818;
+            background: #faf6ed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -24,176 +24,207 @@
             position: relative;
         }
 
-        /* ========== ГРАДИЕНТНЫЙ ФОН ========== */
-        .bg-gradient {
+        /* ========== ХАОТИЧНЫЕ ЛИНИИ ========== */
+        .chaos-lines {
             position: absolute;
             inset: 0;
-            background:
-                radial-gradient(ellipse at 30% 40%, #25252b 0%, transparent 60%),
-                radial-gradient(ellipse at 70% 80%, #1a1a1e 0%, transparent 50%),
-                #1a1818;
             z-index: 0;
-        }
-
-        /* ========== ЗОЛОТЫЕ ТОЧКИ (декор) ========== */
-        .dot {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(201, 169, 110, 0.06);
             pointer-events: none;
-            z-index: 0;
+            opacity: 0.6;
         }
 
-        .dot:nth-child(2) { width: 180px; height: 180px; top: 5%; left: 10%; }
-        .dot:nth-child(3) { width: 300px; height: 300px; bottom: 20%; left: 5%; }
-        .dot:nth-child(4) { width: 120px; height: 120px; top: 30%; right: 20%; }
-        .dot:nth-child(5) { width: 400px; height: 400px; bottom: -10%; right: 30%; }
+        .chaos-lines svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
 
-        /* ========== ВОЛНИСТАЯ ЛИНИЯ ========== */
-        .wave-line {
+        /* ========== НЕОНОВОЕ СВЕЧЕНИЕ (задний слой) ========== */
+        .neon-glow {
             position: absolute;
-            bottom: 60px;
-            left: 0;
-            right: 0;
+            bottom: 80px;
+            right: 100px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.25) 0%, transparent 70%);
             z-index: 1;
             pointer-events: none;
-        }
-
-        .wave-line svg {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-
-        /* ========== СИМВОЛ ✦ В ПРАВОМ НИЖНЕМ УГЛУ ========== */
-        .symbol {
-            position: absolute;
-            bottom: 50px;
-            right: 60px;
-            z-index: 2;
-            font-size: 120px;
-            color: #c9a96e;
-            text-shadow:
-                0 0 40px rgba(201, 169, 110, 0.15),
-                0 0 80px rgba(201, 169, 110, 0.06);
-            opacity: 0.85;
-            font-weight: 400;
-            letter-spacing: 2px;
-            animation: glowPulse 4s ease-in-out infinite;
-            font-family: 'Georgia', serif;
+            filter: blur(20px);
+            animation: glowPulse 3s ease-in-out infinite alternate;
         }
 
         @keyframes glowPulse {
-            0%, 100% {
-                text-shadow:
-                    0 0 40px rgba(201, 169, 110, 0.15),
-                    0 0 80px rgba(201, 169, 110, 0.06);
-                opacity: 0.85;
+            0% {
+                transform: scale(1);
+                opacity: 0.6;
             }
-            50% {
-                text-shadow:
-                    0 0 60px rgba(201, 169, 110, 0.25),
-                    0 0 120px rgba(201, 169, 110, 0.08);
+            100% {
+                transform: scale(1.3);
                 opacity: 1;
             }
         }
 
-        /* ========== МЕЛКИЕ ЗОЛОТЫЕ ЧАСТИЦЫ ========== */
-        .particle {
+        /* ========== СИМВОЛ И ТЕКСТ (правый нижний угол) ========== */
+        .signature {
             position: absolute;
-            border-radius: 50%;
-            background: rgba(201, 169, 110, 0.04);
-            pointer-events: none;
-            z-index: 0;
+            bottom: 50px;
+            right: 60px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Georgia', serif;
         }
 
-        .particle:nth-child(6) { width: 6px; height: 6px; top: 15%; left: 45%; }
-        .particle:nth-child(7) { width: 4px; height: 4px; top: 60%; left: 30%; }
-        .particle:nth-child(8) { width: 5px; height: 5px; top: 80%; left: 70%; }
-        .particle:nth-child(9) { width: 3px; height: 3px; top: 25%; right: 40%; }
-        .particle:nth-child(10) { width: 4px; height: 4px; top: 70%; right: 60%; }
-        .particle:nth-child(11) { width: 6px; height: 6px; top: 45%; left: 20%; }
-        .particle:nth-child(12) { width: 3px; height: 3px; top: 90%; right: 20%; }
-        .particle:nth-child(13) { width: 5px; height: 5px; top: 10%; right: 70%; }
+        .symbol {
+            font-size: 110px;
+            color: #c9a96e;
+            text-shadow:
+                0 0 30px rgba(201, 169, 110, 0.6),
+                0 0 60px rgba(201, 169, 110, 0.3),
+                0 0 100px rgba(201, 169, 110, 0.15),
+                0 0 200px rgba(201, 169, 110, 0.08);
+            animation: neonPulse 2.5s ease-in-out infinite;
+            font-weight: 400;
+            letter-spacing: 2px;
+            line-height: 1;
+        }
 
-        /* ========== ФУТЕР (если нужен) ========== */
+        .text {
+            font-size: 18px;
+            letter-spacing: 6px;
+            color: #c9a96e;
+            opacity: 0.5;
+            font-weight: 300;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 30px rgba(201, 169, 110, 0.6),
+                    0 0 60px rgba(201, 169, 110, 0.3),
+                    0 0 100px rgba(201, 169, 110, 0.15);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow:
+                    0 0 50px rgba(201, 169, 110, 0.8),
+                    0 0 100px rgba(201, 169, 110, 0.4),
+                    0 0 150px rgba(201, 169, 110, 0.2),
+                    0 0 250px rgba(201, 169, 110, 0.08);
+                transform: scale(1.02);
+            }
+        }
+
+        /* ========== ФУТЕР (микро) ========== */
         .footer {
             position: absolute;
             bottom: 20px;
             left: 40px;
             z-index: 1;
             font-family: 'Georgia', serif;
-            font-size: 10px;
-            letter-spacing: 2px;
+            font-size: 9px;
+            letter-spacing: 3px;
             color: rgba(160, 152, 136, 0.15);
-            opacity: 0.4;
             pointer-events: none;
+            text-transform: uppercase;
         }
 
-        /* ========== АДАПТАЦИЯ ПОД РАЗНЫЕ РАЗРЕШЕНИЯ ========== */
+        /* ========== АДАПТАЦИЯ ========== */
         @media (max-width: 1920px) {
             body {
                 width: 100vw;
                 height: 100vh;
             }
         }
+
+        @media (max-width: 768px) {
+            .symbol {
+                font-size: 60px;
+            }
+            .text {
+                font-size: 12px;
+                letter-spacing: 4px;
+            }
+            .signature {
+                bottom: 30px;
+                right: 30px;
+            }
+            .neon-glow {
+                width: 200px;
+                height: 200px;
+                bottom: 40px;
+                right: 50px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== ФОН ===== -->
-    <div class="bg-gradient"></div>
-
-    <!-- ===== ДЕКОР: БОЛЬШИЕ ЗОЛОТЫЕ ПЯТНА ===== -->
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
-
-    <!-- ===== ДЕКОР: МЕЛКИЕ ЧАСТИЦЫ ===== -->
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-
-    <!-- ===== ВОЛНИСТАЯ ЛИНИЯ ===== -->
-    <div class="wave-line">
-        <svg viewBox="0 0 1920 40" preserveAspectRatio="none">
+    <!-- ===== ХАОТИЧНЫЕ ЛИНИИ ===== -->
+    <div class="chaos-lines">
+        <svg viewBox="0 0 1920 1080" preserveAspectRatio="none">
+            <!-- Линия 1 — плавная волна -->
             <path d="
-                M 0 30
-                C 200 5, 400 55, 600 20
-                C 800 -15, 1000 45, 1200 15
-                C 1400 -15, 1600 45, 1920 10
-                L 1920 40
-                L 0 40
-                Z
-            " fill="rgba(201, 169, 110, 0.04)" />
+                M -50 200
+                C 200 100, 400 300, 600 180
+                C 800 60, 1000 250, 1200 150
+                C 1400 50, 1600 220, 1970 120
+            " stroke="#c9a96e" stroke-width="1.2" fill="none" opacity="0.2" />
 
+            <!-- Линия 2 — хаотичная, резкая -->
             <path d="
-                M 0 28
-                C 200 8, 400 50, 600 18
-                C 800 -10, 1000 40, 1200 12
-                C 1400 -10, 1600 40, 1920 8
+                M -50 400
+                C 150 350, 350 500, 550 380
+                C 750 260, 950 480, 1150 350
+                C 1350 220, 1550 450, 1970 320
             " stroke="#c9a96e" stroke-width="0.8" fill="none" opacity="0.15" />
 
+            <!-- Линия 3 — почти прямая с изгибом -->
             <path d="
-                M 0 26
-                C 200 10, 400 45, 600 16
-                C 800 -6, 1000 35, 1200 10
-                C 1400 -6, 1600 35, 1920 6
-            " stroke="#c9a96e" stroke-width="0.5" fill="none" opacity="0.07" />
+                M -50 600
+                C 300 580, 500 650, 700 590
+                C 900 530, 1100 670, 1300 580
+                C 1500 490, 1700 650, 1970 560
+            " stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.12" />
+
+            <!-- Линия 4 — короткая хаотичная -->
+            <path d="
+                M 200 800
+                C 400 770, 500 870, 700 790
+                C 900 710, 1100 850, 1300 780
+            " stroke="#c9a96e" stroke-width="0.6" fill="none" opacity="0.1" />
+
+            <!-- Линия 5 — вертикальная дуга -->
+            <path d="
+                M 100 1080
+                C 120 800, 180 600, 160 400
+                C 140 200, 200 100, 180 -50
+            " stroke="#c9a96e" stroke-width="0.6" fill="none" opacity="0.07" />
+
+            <!-- Линия 6 — диагональная -->
+            <path d="
+                M -50 900
+                C 400 850, 800 950, 1200 880
+                C 1600 810, 1800 920, 1970 860
+            " stroke="#c9a96e" stroke-width="0.7" fill="none" opacity="0.08" />
         </svg>
     </div>
 
-    <!-- ===== СИМВОЛ ✦ В ПРАВОМ НИЖНЕМ УГЛУ ===== -->
-    <div class="symbol">✦</div>
+    <!-- ===== НЕОНОВОЕ СВЕЧЕНИЕ ===== -->
+    <div class="neon-glow"></div>
+
+    <!-- ===== ПОДПИСЬ: СИМВОЛ + ТЕКСТ ===== -->
+    <div class="signature">
+        <span class="text">SQST</span>
+        <span class="symbol">✦</span>
+    </div>
 
     <!-- ===== МИКРО-ФУТЕР ===== -->
-    <div class="footer">SQST</div>
+    <div class="footer">✦</div>
 
 </body>
 </html>
